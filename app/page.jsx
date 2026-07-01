@@ -1,12 +1,12 @@
 import {
   ArrowRight,
   BadgeCheck,
-  CalendarCheck,
   Droplets,
   Gauge,
   Gem,
   MapPin,
   Phone,
+  Send,
   ShieldCheck,
   Sparkles,
   SprayCan,
@@ -63,6 +63,9 @@ const proof = [
   ["24 hr", "quote response target"]
 ];
 
+const bookingHref =
+  "mailto:hello@lucentautodetail.com?subject=Book%20Lucent%20Auto%20Detail&body=Vehicle%3A%0AService%3A%0APreferred%20date%2Ftime%3A%0ACondition%20notes%3A";
+
 export default function Home() {
   return (
     <main>
@@ -75,13 +78,16 @@ export default function Home() {
           <div className="navLinks">
             <a href="#services">Services</a>
             <a href="#packages">Packages</a>
-            <a href="#quote">Quote</a>
+            <a href="#book">Book</a>
+            <a className="navButton" href={bookingHref}>
+              Book now
+            </a>
           </div>
         </nav>
 
         <div className="heroGrid">
           <div className="heroCopy">
-            <p className="eyebrow">Premium auto detailing</p>
+            <p className="eyebrow heroEyebrow">Premium auto detailing</p>
             <h1>
               <span>Lucent</span>
               <span>Auto</span>
@@ -92,8 +98,8 @@ export default function Home() {
               that keeps the finish easy to love.
             </p>
             <div className="heroActions">
-              <a className="primaryButton" href="#quote">
-                Request a quote <ArrowRight size={18} aria-hidden="true" />
+              <a className="primaryButton" href={bookingHref}>
+                Book now <ArrowRight size={18} aria-hidden="true" />
               </a>
               <a className="ghostButton" href="#packages">
                 View packages
@@ -115,6 +121,9 @@ export default function Home() {
               <span>Maintenance plans</span>
             </div>
           </div>
+        </div>
+        <div className="scrollCue" aria-hidden="true">
+          <span />
         </div>
       </section>
 
@@ -140,6 +149,23 @@ export default function Home() {
               <p>{text}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="processTicker" aria-label="Detailing process">
+        <div>
+          <span>Foam wash</span>
+          <span>Paint decon</span>
+          <span>Interior reset</span>
+          <span>Gloss enhancement</span>
+          <span>Ceramic protection</span>
+          <span>Final inspection</span>
+          <span>Foam wash</span>
+          <span>Paint decon</span>
+          <span>Interior reset</span>
+          <span>Gloss enhancement</span>
+          <span>Ceramic protection</span>
+          <span>Final inspection</span>
         </div>
       </section>
 
@@ -188,13 +214,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="quoteBand" id="quote">
-        <div className="quoteCopy">
+      <section className="bookBand" id="book">
+        <div className="bookCopy">
           <p className="eyebrow">Book</p>
-          <h2>Tell Lucent what you drive.</h2>
+          <h2>Ready for a cleaner, glossier drive?</h2>
           <p>
-            Send the vehicle year, make, model, condition, and the service you have in mind. Photos help shape the
-            most accurate quote.
+            Tap book now and send your vehicle, service goal, preferred date, and a few photos. Lucent will reply with
+            the best package and next available time.
           </p>
           <div className="contactRows">
             <a href="tel:+10000000000">
@@ -202,7 +228,7 @@ export default function Home() {
               <span>Add your phone number</span>
             </a>
             <a href="mailto:hello@lucentautodetail.com">
-              <CalendarCheck size={18} aria-hidden="true" />
+              <Send size={18} aria-hidden="true" />
               <span>hello@lucentautodetail.com</span>
             </a>
             <span>
@@ -211,35 +237,19 @@ export default function Home() {
             </span>
           </div>
         </div>
-        <form className="quoteForm" action="mailto:hello@lucentautodetail.com" method="post" encType="text/plain">
-          <label>
-            Name
-            <input type="text" name="name" placeholder="Your name" />
-          </label>
-          <label>
-            Vehicle
-            <input type="text" name="vehicle" placeholder="Year, make, model" />
-          </label>
-          <label>
-            Service
-            <select name="service" defaultValue="">
-              <option value="" disabled>
-                Choose a package
-              </option>
-              <option>Refresh</option>
-              <option>Lucent</option>
-              <option>Shield</option>
-              <option>Not sure yet</option>
-            </select>
-          </label>
-          <label>
-            Notes
-            <textarea name="notes" placeholder="Paint condition, interior needs, coating goals" rows="4" />
-          </label>
-          <button type="submit">
-            Prepare quote <ArrowRight size={18} aria-hidden="true" />
-          </button>
-        </form>
+        <div className="bookingCard" aria-label="Book Lucent Auto Detail">
+          <div className="bookingGlow" aria-hidden="true" />
+          <p>Next detail starts here</p>
+          <h3>Send the vehicle details. Get a tailored booking window.</h3>
+          <a className="primaryButton" href={bookingHref}>
+            Book now <ArrowRight size={18} aria-hidden="true" />
+          </a>
+          <div className="bookingSteps">
+            <span>01 Vehicle</span>
+            <span>02 Service goal</span>
+            <span>03 Photos</span>
+          </div>
+        </div>
       </section>
     </main>
   );
