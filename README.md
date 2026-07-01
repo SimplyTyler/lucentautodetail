@@ -20,7 +20,7 @@ npm start
 
 This repository includes `render.yaml` for a Node web service:
 
-- Build command: `npm ci && npm run build`
+- Build command: `npm install && npm run build`
 - Start command: `npm start`
 - Health check: `/`
 
@@ -29,3 +29,5 @@ Create the service from the Render Dashboard Blueprint flow:
 ```text
 https://dashboard.render.com/blueprint/new?repo=https://github.com/SimplyTyler/lucentautodetail
 ```
+
+Hero photography is served from Unsplash by Emile Guillemot.
