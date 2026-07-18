@@ -67,7 +67,14 @@ export default function Home() {
       </section>
 
       <section className="collectorFeature" id="collectors">
-        <div className="collectorImage" role="img" aria-label="Collector car in a clean detailing bay" />
+        <div className="collectorImage">
+          <Image
+            src="/hero-detailing-hd.jpg"
+            alt="Collector car in a clean detailing bay"
+            fill
+            sizes="(max-width: 900px) 100vw, 54vw"
+          />
+        </div>
         <Reveal className="collectorCopy">
           <span className="kicker kickerOrange">For collector garages</span>
           <h2>Delicate finishes deserve a consistent hand.</h2>

@@ -712,22 +712,44 @@ label > span:first-child {
 .collectorFeature {
   min-height: 720px;
   display: grid;
-  grid-template-columns: 1.04fr 0.96fr;
+  grid-template-columns: minmax(0, 1.08fr) minmax(520px, 0.92fr);
   background: var(--ink);
   color: var(--white);
 }
 
 .collectorImage {
+  position: relative;
   min-height: 720px;
-  background:
-    linear-gradient(90deg, transparent 70%, rgba(17, 19, 17, 0.5)),
-    url("/hero-detailing.jpg") 62% center / cover no-repeat;
+  overflow: hidden;
+}
+
+.collectorImage > img {
+  object-fit: cover;
+  object-position: 62% center;
+}
+
+.collectorImage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 72%, rgba(17, 19, 17, 0.48));
+  pointer-events: none;
 }
 
 .collectorCopy {
-  max-width: 700px;
-  padding: 100px max(48px, calc((100vw - 1240px) / 2)) 100px 72px;
+  width: min(100%, 820px);
+  max-width: none;
+  padding: clamp(72px, 7vw, 112px) clamp(48px, 5vw, 80px) clamp(72px, 7vw, 112px) clamp(48px, 5vw, 72px);
   align-self: center;
+  justify-self: start;
+}
+
+.collectorCopy h2 {
+  max-width: 680px;
+}
+
+.collectorCopy p {
+  max-width: 620px;
 }
 
 .collectorCopy p,
@@ -2055,7 +2077,8 @@ td:first-child small {
   .planSummary { grid-template-columns: 1fr; }
   .planCheckout { border-left: 0; border-top: 1px solid var(--line); }
   .collectorFeature { grid-template-columns: 1fr; }
-  .collectorImage { min-height: 460px; background-position: 60% center; }
+  .collectorImage { min-height: 460px; }
+  .collectorImage > img { object-position: 60% center; }
   .collectorCopy { max-width: none; padding: 72px 24px; }
   .fleetFeature { min-height: 720px; }
   .fleetFeature > img { object-position: 63% center; }
@@ -2122,7 +2145,7 @@ td:first-child small {
   .priceTotal strong { font-size: 2.25rem; }
   .collectorFeature,
   .collectorImage { min-height: 390px; }
-  .collectorImage { background-position: 69% center; }
+  .collectorImage > img { object-position: 69% center; }
   .collectorCopy { padding: 58px 16px; }
   .fleetFeature { min-height: 720px; padding: 64px 16px; }
   .fleetFeature > img { object-position: 66% center; }
