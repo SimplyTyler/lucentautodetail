@@ -15,9 +15,9 @@ export function PortalNav({ user, admin = false }) {
 
   const links = [
     ["Overview", "/portal", LayoutDashboard],
-    ["Vehicles", "/portal#vehicles", CarFront],
-    ["Visits", "/portal#visits", CalendarDays],
-    ["Membership", "/membership", CreditCard]
+    ["Vehicles", "/portal/vehicles", CarFront],
+    ["Visits", "/portal/visits", CalendarDays],
+    ["Membership", "/portal/membership", CreditCard]
   ];
 
   if (admin) {
@@ -29,7 +29,7 @@ export function PortalNav({ user, admin = false }) {
       <Logo compact />
       <nav aria-label="Portal navigation">
         {links.map(([label, href, Icon]) => (
-          <Link className={pathname === href ? "portalNavActive" : ""} href={href} key={label}>
+          <Link className={pathname === href || (href !== "/portal" && pathname.startsWith(`${href}/`)) ? "portalNavActive" : ""} href={href} key={label}>
             <Icon size={18} aria-hidden="true" /> {label}
           </Link>
         ))}

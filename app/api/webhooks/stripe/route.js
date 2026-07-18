@@ -21,15 +21,16 @@ async function syncSubscription(subscription) {
 
   await query(
     `INSERT INTO memberships (
-       id, user_id, stripe_subscription_id, stripe_customer_id, plan_code, vehicle_count, status, current_period_end
-     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+       id, user_id, stripe_subscription_id, stripe_customer_id, plan_code, vehicle_count, status, cancel_at_period_end, current_period_end
+     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
      ON CONFLICT (stripe_subscription_id) DO UPDATE SET
        plan_code = EXCLUDED.plan_code,
        vehicle_count = EXCLUDED.vehicle_count,
        status = EXCLUDED.status,
+       cancel_at_period_end = EXCLUDED.cancel_at_period_end,
        current_period_end = EXCLUDED.current_period_end,
        updated_at = NOW()`,
-    [randomUUID(), userId, subscription.id, customerId, planCode, vehicleCount, subscription.status, periodEnd ? new Date(periodEnd * 1000) : null]
+    [randomUUID(), userId, subscription.id, customerId, planCode, vehicleCount, subscription.status, Boolean(subscription.cancel_at_period_end), periodEnd ? new Date(periodEnd * 1000) : null]
   );
   await query("UPDATE users SET stripe_customer_id = $1, updated_at = NOW() WHERE id = $2", [customerId, userId]);
 }

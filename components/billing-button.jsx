@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 
-export function BillingButton() {
+export function BillingButton({ preview = false }) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -22,8 +22,8 @@ export function BillingButton() {
 
   return (
     <>
-      <button className="button buttonOutline" type="button" disabled={busy} onClick={openPortal}>
-        {busy ? "Opening..." : "Manage billing"} {!busy && <ExternalLink size={16} aria-hidden="true" />}
+      <button className="button buttonOutline" type="button" disabled={busy || preview} title={preview ? "Stripe billing is unavailable in local preview" : undefined} onClick={openPortal}>
+        {busy ? "Opening..." : preview ? "Billing preview" : "Manage billing"} {!busy && <ExternalLink size={16} aria-hidden="true" />}
       </button>
       {message && <p className="formMessage formMessageError" role="alert">{message}</p>}
     </>

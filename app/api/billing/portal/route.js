@@ -10,7 +10,7 @@ export async function POST(request) {
   try {
     const user = await getCurrentUser(session);
     if (!user?.stripe_customer_id) return NextResponse.json({ error: "No Stripe customer is linked to this account yet." }, { status: 404 });
-    const portal = await getStripe().billingPortal.sessions.create({ customer: user.stripe_customer_id, return_url: `${appUrl(request)}/portal` });
+    const portal = await getStripe().billingPortal.sessions.create({ customer: user.stripe_customer_id, return_url: `${appUrl(request)}/portal/membership` });
     return NextResponse.json({ url: portal.url });
   } catch (error) {
     console.error("Billing portal failed", error);

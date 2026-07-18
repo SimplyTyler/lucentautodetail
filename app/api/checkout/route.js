@@ -44,15 +44,15 @@ export async function POST(request) {
           recurring: { interval: "month" },
           product_data: {
             name: `Lucent ${plan.name} vehicle care`,
-            description: `${plan.visits} · ${plan.audience}`,
+            description: `${plan.visits} - ${plan.audience}`,
             metadata: { plan_code: plan.code }
           }
         }
       }],
       metadata: { user_id: user.id, plan_code: plan.code, vehicle_count: String(vehicleCount) },
       subscription_data: { metadata: { user_id: user.id, plan_code: plan.code, vehicle_count: String(vehicleCount) } },
-      success_url: `${baseUrl}/portal?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/membership?plan=${plan.code}`
+      success_url: `${baseUrl}/portal/membership?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/portal/membership?checkout=cancelled`
     });
 
     return NextResponse.json({ url: checkout.url });

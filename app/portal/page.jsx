@@ -1,85 +1,100 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { ArrowRight, CalendarDays, CarFront, CheckCircle2, Clock3, CreditCard } from "lucide-react";
-import { BillingButton } from "../../components/billing-button";
-import { PortalNav } from "../../components/portal-nav";
-import { ServiceRequestForm } from "../../components/service-request-form";
-import { VehicleManager } from "../../components/vehicle-manager";
-import { getCurrentUser, getSession, isAdminSession } from "../../lib/auth";
+import { ArrowRight, CalendarDays, CarFront, Clock3, CreditCard, Gauge, MapPin, ShieldCheck } from "lucide-react";
 import { getPortalData } from "../../lib/data";
-import { hasDatabase } from "../../lib/db";
 import { formatMoney, getPlan } from "../../lib/plans";
+import { getPortalContext } from "../../lib/portal";
+import { visitServices, visitWindows } from "../../lib/visits";
 
 export const metadata = { title: "Member Portal" };
-export const dynamic = "force-dynamic";
 
-function dateLabel(value) {
-  if (!value) return "To be confirmed";
-  return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(value));
+function dateLabel(value, options = {}) {
+  if (!value) return "Not scheduled";
+  return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC", ...options }).format(new Date(value));
 }
 
-export default async function PortalPage({ searchParams }) {
-  const session = await getSession();
-  if (!session && hasDatabase()) redirect("/account?next=/portal");
+function vehicleLabel(request) {
+  return request.nickname || [request.make, request.model].filter(Boolean).join(" ") || "Member vehicle";
+}
 
-  const user = session ? await getCurrentUser(session) : { id: "preview", name: "Alex Morgan", email: "alex@example.com", role: "user", preview: true };
-  if (!user && hasDatabase()) redirect("/account");
-
+export default async function PortalPage() {
+  const { user } = await getPortalContext("/portal");
   const data = await getPortalData(user);
   const membership = data.membership;
   const plan = membership ? getPlan(membership.plan_code) : null;
-  const params = await searchParams;
+  const upcoming = data.requests
+    .filter((request) => !["completed", "cancelled"].includes(request.status))
+    .sort((a, b) => new Date(a.preferred_date) - new Date(b.preferred_date));
+  const nextVisit = upcoming[0];
+  const service = nextVisit ? visitServices.find((item) => item.code === nextVisit.service_type) : null;
+  const window = nextVisit ? visitWindows.find((item) => item.code === nextVisit.preferred_window) : null;
+  const monthly = plan && membership ? plan.price * membership.vehicle_count : 0;
 
   return (
-    <main className="portalLayout">
-      <PortalNav user={user} admin={isAdminSession(session)} />
-      <div className="portalMain">
-        {data.preview && <div className="portalNotice">Preview data is shown until PostgreSQL is connected.</div>}
-        {params?.checkout === "success" && <div className="successBanner"><CheckCircle2 size={18} /> Subscription received. Stripe is confirming the membership now.</div>}
+    <>
+      {data.preview && <div className="portalNotice">Preview data is active. Changes stay in this browser until PostgreSQL and Stripe are connected.</div>}
 
-        <header className="portalHeader">
-          <div><span className="kicker">Member portal</span><h1>Good {new Date().getHours() < 12 ? "morning" : "afternoon"}, {user.name.split(" ")[0]}.</h1><p>Your vehicles, next visit, and membership at a glance.</p></div>
-          <ServiceRequestForm vehicles={data.vehicles} />
-        </header>
+      <header className="portalHeader portalOverviewHeader">
+        <div>
+          <span className="kicker">Overview</span>
+          <h1>Good {new Date().getHours() < 12 ? "morning" : "afternoon"}, {user.name.split(" ")[0]}.</h1>
+          <p>Your garage, care schedule, and membership are organized here.</p>
+        </div>
+        <Link className="button buttonLime" href="/portal/visits"><CalendarDays size={17} /> Plan a visit</Link>
+      </header>
 
-        <section className="portalMetrics" aria-label="Account summary">
-          <div><span><CarFront size={18} /> Vehicles</span><strong>{String(data.vehicles.length).padStart(2, "0")}</strong><small>{membership ? `${membership.vehicle_count} on membership` : "No active plan"}</small></div>
-          <div><span><CalendarDays size={18} /> Next visit</span><strong>{data.requests[0] ? dateLabel(data.requests[0].preferred_date).replace(/, \d{4}/, "") : "—"}</strong><small>{data.requests[0]?.status || "No visit requested"}</small></div>
-          <div><span><CreditCard size={18} /> Membership</span><strong>{plan?.name || "None"}</strong><small>{membership?.status || "Choose a plan"}</small></div>
-        </section>
+      <section className="portalMetrics portalMetricsFour" aria-label="Account summary">
+        <div><span><CarFront size={18} /> Garage</span><strong>{String(data.vehicles.length).padStart(2, "0")}</strong><small>{data.coveredVehicleIds.length} assigned to care</small></div>
+        <div><span><CalendarDays size={18} /> Next visit</span><strong>{nextVisit ? dateLabel(nextVisit.preferred_date, { year: undefined }) : "None"}</strong><small>{nextVisit?.status || "Plan when ready"}</small></div>
+        <div><span><ShieldCheck size={18} /> Membership</span><strong>{plan?.name || "None"}</strong><small>{membership?.cancel_at_period_end ? "Ends this period" : membership?.status || "Choose a plan"}</small></div>
+        <div><span><CreditCard size={18} /> Monthly</span><strong>{monthly ? formatMoney(monthly) : "$0"}</strong><small>{membership ? `${membership.vehicle_count} vehicle${membership.vehicle_count === 1 ? "" : "s"}` : "No recurring billing"}</small></div>
+      </section>
 
-        <section className="portalColumns">
-          <div className="portalPanel" id="visits">
-            <div className="panelHeading"><div><span className="kicker">Schedule</span><h2>Upcoming visits</h2></div><Clock3 size={20} /></div>
-            <div className="visitList">
-              {data.requests.map((request) => (
-                <div className="visitRow" key={request.id}>
-                  <span className="visitDate"><strong>{new Date(request.preferred_date).getUTCDate()}</strong><small>{new Intl.DateTimeFormat("en-US", { month: "short", timeZone: "UTC" }).format(new Date(request.preferred_date))}</small></span>
-                  <div><strong>{request.make ? `${request.make} ${request.model}` : "Membership detail"}</strong><small>Preferred service date</small></div>
-                  <span className={`statusPill status${request.status}`}>{request.status}</span>
-                </div>
-              ))}
-              {!data.requests.length && <div className="emptyState"><CalendarDays size={24} /><strong>No visits scheduled</strong><p>Request your next membership detail when the timing is right.</p></div>}
+      <section className="portalDashboardGrid">
+        <div className="portalPanel nextVisitPanel">
+          <div className="panelHeading"><div><span className="kicker">Next up</span><h2>{nextVisit ? dateLabel(nextVisit.preferred_date) : "No visit planned"}</h2></div><Clock3 size={20} /></div>
+          {nextVisit ? (
+            <div className="nextVisitDetails">
+              <div className="nextVisitDate"><strong>{new Date(nextVisit.preferred_date).getUTCDate()}</strong><span>{dateLabel(nextVisit.preferred_date, { day: undefined, year: undefined })}</span></div>
+              <div className="nextVisitMeta">
+                <strong>{vehicleLabel(nextVisit)}</strong>
+                <span><Gauge size={15} /> {service?.name || "Membership detail"}</span>
+                <span><Clock3 size={15} /> {window ? `${window.name}, ${window.detail}` : "Window pending"}</span>
+                <span><MapPin size={15} /> {nextVisit.service_location === "studio" ? "Lucent studio" : nextVisit.service_address || "Address pending"}</span>
+              </div>
+              <span className={`statusPill status${nextVisit.status}`}>{nextVisit.status}</span>
             </div>
-          </div>
+          ) : (
+            <div className="emptyState compactEmpty"><CalendarDays size={24} /><strong>Your calendar is clear</strong><p>Choose a vehicle and preferred service window when you are ready.</p></div>
+          )}
+          <Link className="panelLink" href="/portal/visits">View schedule <ArrowRight size={16} /></Link>
+        </div>
 
-          <div className="portalPanel membershipPanel">
-            <div className="panelHeading"><div><span className="kicker">Membership</span><h2>{plan ? `${plan.name} care` : "Choose your care"}</h2></div>{membership && <span className={`statusPill status${membership.status}`}>{membership.status}</span>}</div>
-            {plan ? (
-              <>
-                <p>{plan.description}</p>
-                <div className="membershipNumbers"><span><small>Vehicles</small><strong>{membership.vehicle_count}</strong></span><span><small>Monthly</small><strong>{formatMoney(plan.price * membership.vehicle_count)}</strong></span></div>
-                <small className="renewalLine">Current period ends {dateLabel(membership.current_period_end)}</small>
-                <BillingButton />
-              </>
-            ) : (
-              <><p>Pick a per-vehicle plan to unlock recurring care and centralized billing.</p><Link className="button buttonDark" href="/membership">Explore memberships <ArrowRight size={17} /></Link></>
-            )}
-          </div>
-        </section>
+        <div className="portalPanel membershipSnapshot">
+          <div className="panelHeading"><div><span className="kicker">Current care</span><h2>{plan ? `${plan.name} membership` : "No active membership"}</h2></div>{membership && <span className={`statusPill status${membership.status}`}>{membership.status}</span>}</div>
+          {plan ? (
+            <>
+              <p>{plan.description}</p>
+              <div className="membershipNumbers"><span><small>Care slots</small><strong>{membership.vehicle_count}</strong></span><span><small>Next renewal</small><strong>{dateLabel(membership.current_period_end, { year: undefined })}</strong></span></div>
+              {membership.cancel_at_period_end && <div className="attentionLine">Cancellation is scheduled for the end of this billing period.</div>}
+            </>
+          ) : <p>Choose recurring care and assign the vehicles you want Lucent to maintain.</p>}
+          <Link className="panelLink" href="/portal/membership">Manage membership <ArrowRight size={16} /></Link>
+        </div>
+      </section>
 
-        <section className="portalPanel garagePanel" id="vehicles"><VehicleManager initialVehicles={data.vehicles} preview={data.preview} /></section>
-      </div>
-    </main>
+      <section className="portalPanel garageSnapshot">
+        <div className="panelHeading"><div><span className="kicker">Garage</span><h2>Vehicles in your account</h2></div><Link className="button buttonOutline" href="/portal/vehicles">Manage vehicles <ArrowRight size={16} /></Link></div>
+        <div className="garageSnapshotGrid">
+          {data.vehicles.slice(0, 3).map((vehicle) => (
+            <div className="garageSnapshotItem" key={vehicle.id}>
+              <span><CarFront size={20} /></span>
+              <div><strong>{vehicle.nickname || `${vehicle.year} ${vehicle.make}`}</strong><small>{vehicle.year} {vehicle.make} {vehicle.model}</small></div>
+              <i className={data.coveredVehicleIds.includes(vehicle.id) ? "coverageDot coverageDotActive" : "coverageDot"} title={data.coveredVehicleIds.includes(vehicle.id) ? "Assigned to membership" : "Not assigned"} />
+            </div>
+          ))}
+          {!data.vehicles.length && <div className="emptyState compactEmpty"><CarFront size={24} /><strong>No vehicles yet</strong><p>Add the first vehicle you want Lucent to care for.</p></div>}
+        </div>
+      </section>
+    </>
   );
 }
