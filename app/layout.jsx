@@ -1,14 +1,23 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Lucent Auto Detail | Premium Mobile & Studio Detailing",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://lucentautodetail.onrender.com"),
+  title: {
+    default: "Lucent Auto Detail | Membership Car Care",
+    template: "%s | Lucent Auto Detail"
+  },
   description:
-    "Lucent Auto Detail provides meticulous exterior, interior, ceramic, and maintenance detailing for drivers who want their vehicle to look freshly finished."
+    "Recurring, detail-first vehicle care for daily drivers, collector cars, and business fleets.",
+  openGraph: {
+    title: "Lucent Auto Detail",
+    description: "Precision detailing, built around your vehicles.",
+    images: ["/lucent-hero-v2.jpg"]
+  }
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );
