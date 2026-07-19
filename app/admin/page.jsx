@@ -1,47 +1,97 @@
-import { redirect } from "next/navigation";
-import { CalendarClock, CarFront, CircleDollarSign, UsersRound } from "lucide-react";
-import { AdminMemberTable } from "../../components/admin-member-table";
-import { PortalNav } from "../../components/portal-nav";
-import { getCurrentUser, getSession, isAdminSession } from "../../lib/auth";
-import { getAdminData } from "../../lib/data";
-import { hasDatabase } from "../../lib/db";
-import { formatMoney } from "../../lib/plans";
+import Link from "next/link";
+import { AlertTriangle, ArrowRight, CalendarClock, CarFront, CircleDollarSign, Clock3, CreditCard, Plus, ShieldAlert, UsersRound, Wrench } from "lucide-react";
+import { getAdminWorkspaceData } from "../../lib/admin-data";
+import { formatMoney, getPlan, membershipPlans } from "../../lib/plans";
+import { currentBusinessDate, visitServices, visitWindows } from "../../lib/visits";
 
-export const metadata = { title: "Admin" };
-export const dynamic = "force-dynamic";
+export const metadata = { title: "Operations Admin" };
+
+function dateLabel(value, options = {}) {
+  if (!value) return "Not scheduled";
+  return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC", ...options }).format(new Date(value));
+}
+
+function vehicleLabel(appointment) {
+  return appointment.nickname || [appointment.make, appointment.model].filter(Boolean).join(" ") || "Vehicle pending";
+}
 
 export default async function AdminPage() {
-  const session = await getSession();
-  if (hasDatabase() && !isAdminSession(session)) redirect("/account?next=/admin");
-  const user = session ? await getCurrentUser(session) : { id: "admin-preview", name: "Lucent Admin", email: "owner@lucentautodetail.com", role: "admin", preview: true };
-  const data = await getAdminData();
+  const data = await getAdminWorkspaceData();
+  const today = currentBusinessDate();
+  const todayDisplay = new Date(`${today}T12:00:00.000Z`);
+  const businessHour = Number(new Intl.DateTimeFormat("en-US", { hour: "numeric", hour12: false, timeZone: "America/Phoenix" }).format(new Date()));
+  const greeting = businessHour < 12 ? "morning" : businessHour < 17 ? "afternoon" : "evening";
+  const activeAppointments = data.appointments
+    .filter((appointment) => ["requested", "confirmed", "in_progress"].includes(appointment.status))
+    .sort((a, b) => String(a.preferred_date).localeCompare(String(b.preferred_date)));
+  const todayAppointments = activeAppointments.filter((appointment) => String(appointment.preferred_date).slice(0, 10) === today);
+  const schedule = todayAppointments.length ? todayAppointments : activeAppointments.slice(0, 4);
+  const requested = data.appointments.filter((appointment) => appointment.status === "requested");
+  const pastDue = data.memberships.filter((membership) => membership.status === "past_due");
+  const unassignedSlots = data.memberships.filter((membership) => membership.covered_vehicle_ids.length < membership.vehicle_count);
+  const recentCustomers = [...data.customers].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 5);
 
   return (
-    <main className="portalLayout adminLayout">
-      <PortalNav user={user} admin />
-      <div className="portalMain">
-        {data.preview && <div className="portalNotice">Admin preview data is shown until PostgreSQL is connected and ADMIN_EMAILS is configured.</div>}
-        <header className="portalHeader adminHeader">
-          <div><span className="kicker">Operations</span><h1>Membership overview</h1><p>Monitor members, vehicle volume, service demand, and subscription health.</p></div>
-        </header>
+    <>
+      {data.preview && <div className="portalNotice">Admin preview is active. Every operation can be exercised safely before PostgreSQL and Stripe are connected.</div>}
+      <header className="portalHeader adminCommandHeader">
+        <div><span className="kicker">Operations</span><h1>Good {greeting}.</h1><p>{dateLabel(todayDisplay, { weekday: "long" })}. Here is what needs attention across Lucent.</p></div>
+        <Link className="button buttonLime" href="/admin/appointments?new=1"><Plus size={17} /> New appointment</Link>
+      </header>
 
-        <section className="adminMetrics">
-          <div><UsersRound size={19} /><span>Active members</span><strong>{data.metrics.members}</strong><small>Active or trialing</small></div>
-          <div><CarFront size={19} /><span>Vehicles covered</span><strong>{data.metrics.vehicles}</strong><small>Across all plans</small></div>
-          <div><CircleDollarSign size={19} /><span>Monthly run rate</span><strong>{formatMoney(data.metrics.monthlyRevenue)}</strong><small>Plan value estimate</small></div>
-          <div><CalendarClock size={19} /><span>Open requests</span><strong>{data.metrics.openRequests}</strong><small>Requested or confirmed</small></div>
-        </section>
+      <section className="adminCommandMetrics" aria-label="Operations summary">
+        <div><span><UsersRound size={17} /> Customers</span><strong>{data.metrics.customers}</strong><small>{data.metrics.members} active memberships</small></div>
+        <div><span><CalendarClock size={17} /> Today</span><strong>{data.metrics.todayAppointments}</strong><small>{data.metrics.openAppointments} open appointments</small></div>
+        <div><span><CarFront size={17} /> Vehicles</span><strong>{data.metrics.vehicles}</strong><small>Across the customer registry</small></div>
+        <div><span><CircleDollarSign size={17} /> Monthly run rate</span><strong>{formatMoney(data.metrics.monthlyRevenue)}</strong><small>Current plan value</small></div>
+      </section>
 
-        <section className="adminGrid">
-          <AdminMemberTable members={data.members} />
+      <section className="adminDashboardGrid">
+        <div className="adminSurface adminScheduleBoard">
+          <div className="adminSurfaceHeading"><div><span className="kicker">{todayAppointments.length ? "Today's run" : "Next up"}</span><h2>{todayAppointments.length ? `${todayAppointments.length} appointment${todayAppointments.length === 1 ? "" : "s"}` : "Upcoming schedule"}</h2></div><Link className="panelLink" href="/admin/appointments">Open schedule <ArrowRight size={16} /></Link></div>
+          <div className="adminScheduleList">
+            {schedule.map((appointment) => {
+              const service = visitServices.find((item) => item.code === appointment.service_type);
+              const window = visitWindows.find((item) => item.code === appointment.preferred_window);
+              return (
+                <div className="adminScheduleRow" key={appointment.id}>
+                  <span className="adminScheduleTime"><strong>{window?.name || "Flexible"}</strong><small>{window?.detail || dateLabel(appointment.preferred_date)}</small></span>
+                  <span className="adminScheduleMarker" />
+                  <div><strong>{appointment.customer_name}</strong><small>{vehicleLabel(appointment)} - {service?.name || "Detail service"}</small></div>
+                  <span className="adminDetailer"><Wrench size={14} /> {appointment.assigned_detailer || "Unassigned"}</span>
+                  <span className={`statusPill status${appointment.status}`}>{appointment.status.replace("_", " ")}</span>
+                </div>
+              );
+            })}
+            {!schedule.length && <div className="emptyState adminCompactEmpty"><CalendarClock size={25} /><strong>The schedule is clear</strong><p>Create an appointment when the next customer is ready.</p></div>}
+          </div>
+        </div>
 
-          <aside className="requestQueue">
-            <div className="panelHeading"><div><span className="kicker">Queue</span><h2>Service requests</h2></div></div>
-            {data.requests.map((request) => <div className="queueRow" key={request.id}><span className="queueDate"><strong>{request.preferred_date ? new Date(request.preferred_date).getUTCDate() : "—"}</strong><small>{request.preferred_date ? new Intl.DateTimeFormat("en-US", { month: "short", timeZone: "UTC" }).format(new Date(request.preferred_date)) : "TBD"}</small></span><div><strong>{request.name}</strong><small>{request.make ? `${request.make} ${request.model}` : "Vehicle pending"}</small></div><span className={`statusPill status${request.status}`}>{request.status}</span></div>)}
-            {!data.requests.length && <p className="emptyQueue">No open service requests.</p>}
-          </aside>
-        </section>
-      </div>
-    </main>
+        <aside className="adminSurface adminAttentionPanel">
+          <div className="adminSurfaceHeading"><div><span className="kicker">Action queue</span><h2>Needs attention</h2></div><ShieldAlert size={20} /></div>
+          <Link className="adminAttentionRow" href="/admin/appointments?status=requested"><span className="attentionIcon attentionIconIce"><Clock3 size={18} /></span><div><strong>{requested.length} unconfirmed requests</strong><small>Review and assign arrival windows</small></div><ArrowRight size={16} /></Link>
+          <Link className="adminAttentionRow" href="/admin/memberships?status=past_due"><span className="attentionIcon attentionIconOrange"><AlertTriangle size={18} /></span><div><strong>{pastDue.length} billing exceptions</strong><small>Past-due memberships need follow-up</small></div><ArrowRight size={16} /></Link>
+          <Link className="adminAttentionRow" href="/admin/memberships"><span className="attentionIcon"><CreditCard size={18} /></span><div><strong>{unassignedSlots.length} plans with open slots</strong><small>Assign vehicles or adjust care quantity</small></div><ArrowRight size={16} /></Link>
+        </aside>
+      </section>
+
+      <section className="adminDashboardLower">
+        <div className="adminSurface adminPlanMix">
+          <div className="adminSurfaceHeading"><div><span className="kicker">Portfolio</span><h2>Membership mix</h2></div><Link className="panelLink" href="/admin/memberships">Manage plans <ArrowRight size={16} /></Link></div>
+          <div className="adminPlanMixGrid">
+            {membershipPlans.map((plan) => {
+              const memberships = data.memberships.filter((membership) => membership.plan_code === plan.code);
+              const slots = memberships.reduce((sum, membership) => sum + membership.vehicle_count, 0);
+              return <div key={plan.code}><span className={`adminPlanSwatch adminPlanSwatch${plan.accent}`} /><small>{plan.name}</small><strong>{memberships.length}</strong><p>{slots} care slots - {formatMoney(slots * plan.price)} monthly</p></div>;
+            })}
+          </div>
+        </div>
+
+        <div className="adminSurface adminRecentCustomers">
+          <div className="adminSurfaceHeading"><div><span className="kicker">Accounts</span><h2>Recent customers</h2></div><Link className="panelLink" href="/admin/customers">View all <ArrowRight size={16} /></Link></div>
+          {recentCustomers.map((customer) => <Link className="adminCustomerMiniRow" href={`/admin/customers?customer=${customer.id}`} key={customer.id}><span>{customer.name.slice(0, 1)}</span><div><strong>{customer.name}</strong><small>{customer.email}</small></div><div><strong>{getPlan(customer.plan_code)?.name || "Lead"}</strong><small>{customer.vehicle_total} vehicle{customer.vehicle_total === 1 ? "" : "s"}</small></div><ArrowRight size={15} /></Link>)}
+        </div>
+      </section>
+    </>
   );
 }

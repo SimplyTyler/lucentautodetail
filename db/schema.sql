@@ -5,9 +5,14 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash TEXT NOT NULL,
   role TEXT NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
   stripe_customer_id TEXT UNIQUE,
+  phone TEXT,
+  admin_notes TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE users ADD COLUMN IF NOT EXISTS phone TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS admin_notes TEXT;
 
 CREATE TABLE IF NOT EXISTS vehicles (
   id TEXT PRIMARY KEY,
@@ -66,6 +71,8 @@ CREATE TABLE IF NOT EXISTS service_requests (
   service_location TEXT NOT NULL DEFAULT 'home',
   service_address TEXT,
   notes TEXT,
+  admin_notes TEXT,
+  assigned_detailer TEXT,
   status TEXT NOT NULL DEFAULT 'requested' CHECK (status IN ('requested', 'confirmed', 'in_progress', 'completed', 'cancelled')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -74,6 +81,8 @@ CREATE TABLE IF NOT EXISTS service_requests (
 ALTER TABLE service_requests ADD COLUMN IF NOT EXISTS preferred_window TEXT;
 ALTER TABLE service_requests ADD COLUMN IF NOT EXISTS service_location TEXT NOT NULL DEFAULT 'home';
 ALTER TABLE service_requests ADD COLUMN IF NOT EXISTS service_address TEXT;
+ALTER TABLE service_requests ADD COLUMN IF NOT EXISTS admin_notes TEXT;
+ALTER TABLE service_requests ADD COLUMN IF NOT EXISTS assigned_detailer TEXT;
 ALTER TABLE service_requests ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
 
 CREATE TABLE IF NOT EXISTS stripe_webhook_events (

@@ -1,0 +1,1587 @@
+/* Admin operations console */
+.adminMain {
+  width: min(1380px, calc(100% - 64px));
+}
+
+.adminSidebar .logoMark {
+  border-color: var(--lime);
+}
+
+.adminPortalLink {
+  min-height: 42px;
+  margin-top: auto;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 720;
+}
+
+.adminPortalLink:hover {
+  border-color: rgba(255, 255, 255, 0.38);
+  color: var(--white);
+}
+
+.adminSidebar .sidebarUser {
+  margin-top: 14px;
+}
+
+.adminCommandHeader {
+  min-height: 132px;
+}
+
+.adminCommandHeader h1 {
+  max-width: 780px;
+}
+
+.adminCommandMetrics,
+.adminWorkspaceStats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid var(--line);
+}
+
+.adminCommandMetrics > div,
+.adminWorkspaceStats > div {
+  min-width: 0;
+  min-height: 126px;
+  padding: 23px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+
+.adminCommandMetrics > div:first-child,
+.adminWorkspaceStats > div:first-child {
+  padding-left: 0;
+}
+
+.adminCommandMetrics > div:last-child,
+.adminWorkspaceStats > div:last-child {
+  border-right: 0;
+}
+
+.adminCommandMetrics span,
+.adminWorkspaceStats span {
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.68rem;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.adminCommandMetrics svg {
+  color: var(--lime-dark);
+}
+
+.adminCommandMetrics strong,
+.adminWorkspaceStats strong {
+  min-width: 0;
+  margin: auto 0 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.85rem;
+  white-space: nowrap;
+}
+
+.adminCommandMetrics small {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.adminDashboardGrid,
+.adminDashboardLower {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(310px, 0.45fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.adminDashboardLower {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+.adminSurface {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--white);
+}
+
+.adminSurfaceHeading {
+  min-width: 0;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.adminSurfaceHeading .kicker {
+  margin-bottom: 6px;
+}
+
+.adminSurfaceHeading h2 {
+  margin: 0;
+  font-size: 1.28rem;
+}
+
+.adminScheduleList {
+  border-top: 1px solid var(--line);
+}
+
+.adminScheduleRow {
+  min-width: 0;
+  min-height: 84px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 110px 10px minmax(150px, 1fr) minmax(110px, auto) auto;
+  align-items: center;
+  gap: 13px;
+}
+
+.adminScheduleRow:last-child {
+  border-bottom: 0;
+}
+
+.adminScheduleTime strong,
+.adminScheduleTime small,
+.adminScheduleRow > div strong,
+.adminScheduleRow > div small {
+  display: block;
+}
+
+.adminScheduleTime strong,
+.adminScheduleRow > div strong {
+  font-size: 0.78rem;
+}
+
+.adminScheduleTime small,
+.adminScheduleRow > div small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.66rem;
+  line-height: 1.35;
+}
+
+.adminScheduleMarker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 4px rgba(142, 189, 21, 0.13);
+}
+
+.adminDetailer {
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.adminCompactEmpty {
+  min-height: 150px;
+}
+
+.adminAttentionPanel .adminSurfaceHeading > svg {
+  color: var(--orange);
+}
+
+.adminAttentionRow {
+  min-width: 0;
+  min-height: 78px;
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 11px;
+}
+
+.adminAttentionRow > svg {
+  color: var(--muted);
+}
+
+.adminAttentionRow div,
+.adminAttentionRow strong,
+.adminAttentionRow small {
+  min-width: 0;
+  display: block;
+}
+
+.adminAttentionRow strong {
+  font-size: 0.76rem;
+}
+
+.adminAttentionRow small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.65rem;
+  line-height: 1.35;
+}
+
+.attentionIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 5px;
+  background: #eff7dc;
+  color: #5f790e;
+  display: grid;
+  place-items: center;
+}
+
+.attentionIconIce {
+  background: #e9f7fc;
+  color: #27677d;
+}
+
+.attentionIconOrange {
+  background: #fff0ec;
+  color: var(--danger);
+}
+
+.adminPlanMixGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.adminPlanMixGrid > div {
+  min-width: 0;
+  padding: 18px;
+  border-right: 1px solid var(--line);
+}
+
+.adminPlanMixGrid > div:first-child {
+  padding-left: 0;
+}
+
+.adminPlanMixGrid > div:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.adminPlanSwatch {
+  width: 24px;
+  height: 4px;
+  margin-bottom: 22px;
+  background: var(--lime);
+  display: block;
+}
+
+.adminPlanSwatchorange {
+  background: var(--orange);
+}
+
+.adminPlanSwatchice {
+  background: #67c7ec;
+}
+
+.adminPlanMixGrid small,
+.adminPlanMixGrid strong,
+.adminPlanMixGrid p {
+  min-width: 0;
+  display: block;
+}
+
+.adminPlanMixGrid small {
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.adminPlanMixGrid strong {
+  margin-top: 8px;
+  font-size: 1.55rem;
+}
+
+.adminPlanMixGrid p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.65rem;
+  line-height: 1.4;
+}
+
+.adminCustomerMiniRow {
+  min-width: 0;
+  min-height: 66px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 34px minmax(120px, 1fr) minmax(90px, auto) 16px;
+  align-items: center;
+  gap: 10px;
+}
+
+.adminCustomerMiniRow > span,
+.adminCustomerAvatar {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.adminCustomerMiniRow div,
+.adminCustomerMiniRow strong,
+.adminCustomerMiniRow small {
+  min-width: 0;
+  display: block;
+}
+
+.adminCustomerMiniRow strong,
+.adminCustomerMiniRow small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminCustomerMiniRow strong {
+  font-size: 0.73rem;
+}
+
+.adminCustomerMiniRow small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.adminWorkspaceToolbar {
+  padding-block: 22px;
+}
+
+.adminToolbarSelects {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.adminToolbarSelects select {
+  width: 190px;
+}
+
+.adminListMeta {
+  min-height: 44px;
+  padding: 0 2px 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.adminListMeta span,
+.adminListMeta small {
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+
+.adminMasterDetail {
+  display: grid;
+  grid-template-columns: minmax(430px, 0.9fr) minmax(0, 1.1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.adminCustomerList,
+.adminCustomerDetail,
+.adminVehicleCard,
+.adminEditorPanel,
+.adminMembershipList,
+.adminMembershipEditor {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--white);
+}
+
+.adminCustomerList,
+.adminMembershipList {
+  padding: 18px;
+}
+
+.adminCustomerRow {
+  width: 100%;
+  min-width: 0;
+  min-height: 72px;
+  padding: 11px 10px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  display: grid;
+  grid-template-columns: 36px minmax(130px, 1fr) minmax(90px, auto) auto;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.adminCustomerRow:hover,
+.adminCustomerRowActive {
+  background: #f1f3ed;
+}
+
+.adminCustomerRowActive {
+  box-shadow: inset 3px 0 0 var(--lime-dark);
+}
+
+.adminCustomerRow > span,
+.adminCustomerRow strong,
+.adminCustomerRow small {
+  min-width: 0;
+}
+
+.adminCustomerRow > span:not(.statusPill):not(.adminCustomerAvatar),
+.adminCustomerRow strong,
+.adminCustomerRow small {
+  display: block;
+}
+
+.adminCustomerRow strong,
+.adminCustomerRow small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminCustomerRow strong {
+  font-size: 0.74rem;
+}
+
+.adminCustomerRow small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.adminCustomerDetail {
+  padding: 24px;
+}
+
+.adminCustomerDetailHeader,
+.adminMembershipEditorHeader {
+  min-width: 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.adminCustomerAvatarLarge {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.adminCustomerDetailHeader > div,
+.adminMembershipEditorHeader > div {
+  min-width: 0;
+}
+
+.adminCustomerDetailHeader .kicker,
+.adminMembershipEditorHeader .kicker {
+  margin-bottom: 4px;
+}
+
+.adminCustomerDetailHeader h2,
+.adminMembershipEditorHeader h2 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.35rem;
+  white-space: nowrap;
+}
+
+.adminCustomerDetailHeader p,
+.adminMembershipEditorHeader p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.67rem;
+}
+
+.adminContactGrid {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.adminContactGrid > span {
+  min-width: 0;
+  padding: 0 13px;
+  border-right: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  column-gap: 6px;
+}
+
+.adminContactGrid > span:first-child {
+  padding-left: 0;
+}
+
+.adminContactGrid > span:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.adminContactGrid svg {
+  grid-row: 1 / 3;
+  color: var(--muted);
+}
+
+.adminContactGrid small,
+.adminContactGrid strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminContactGrid small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.adminContactGrid strong {
+  margin-top: 4px;
+  font-size: 0.65rem;
+}
+
+.adminNotesForm {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(150px, 0.55fr) minmax(0, 1.45fr);
+  align-items: end;
+  gap: 13px;
+}
+
+.adminNotesForm .button,
+.adminNotesForm .formMessage {
+  grid-column: 1 / -1;
+}
+
+.adminNotesForm .button {
+  min-height: 42px;
+  justify-self: end;
+}
+
+.adminDetailSection {
+  padding-top: 21px;
+}
+
+.adminDetailSection + .adminDetailSection {
+  margin-top: 21px;
+  border-top: 1px solid var(--line);
+}
+
+.adminDetailSectionHeading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.adminDetailSectionHeading .kicker {
+  margin-bottom: 4px;
+}
+
+.adminDetailSectionHeading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.adminDetailSectionHeading > a {
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 760;
+}
+
+.adminMembershipMini {
+  margin-top: 13px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--line);
+}
+
+.adminMembershipMini > span {
+  min-width: 0;
+  min-height: 66px;
+  padding: 12px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.adminMembershipMini > span:last-child {
+  border-right: 0;
+}
+
+.adminMembershipMini small,
+.adminMembershipMini strong {
+  min-width: 0;
+  display: block;
+}
+
+.adminMembershipMini small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.adminMembershipMini strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.68rem;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.statusTextpast_due,
+.statusTextunpaid {
+  color: var(--danger);
+}
+
+.statusTextactive,
+.statusTexttrialing {
+  color: var(--success);
+}
+
+.adminMutedCopy {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.adminCustomerVehicles,
+.adminCustomerAppointments {
+  margin-top: 12px;
+  display: grid;
+  gap: 7px;
+}
+
+.adminCustomerVehicles > a {
+  min-width: 0;
+  min-height: 54px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 10px;
+  align-items: center;
+  gap: 9px;
+}
+
+.adminCustomerVehicles > a > span {
+  width: 34px;
+  height: 34px;
+  border-radius: 5px;
+  background: #eef0e9;
+  display: grid;
+  place-items: center;
+}
+
+.adminCustomerVehicles div,
+.adminCustomerVehicles strong,
+.adminCustomerVehicles small {
+  min-width: 0;
+  display: block;
+}
+
+.adminCustomerVehicles strong,
+.adminCustomerVehicles small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminCustomerVehicles strong {
+  font-size: 0.7rem;
+}
+
+.adminCustomerVehicles small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.61rem;
+}
+
+.adminCustomerAppointments > div {
+  min-width: 0;
+  min-height: 55px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+}
+
+.adminCustomerAppointments > div > span:first-child {
+  width: 36px;
+  height: 40px;
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminCustomerAppointments strong,
+.adminCustomerAppointments small {
+  display: block;
+}
+
+.adminCustomerAppointments strong {
+  font-size: 0.7rem;
+}
+
+.adminCustomerAppointments small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.6rem;
+  text-transform: capitalize;
+}
+
+/* Admin vehicle registry */
+.adminVehicleGrid,
+.adminAppointmentLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.adminVehicleGridEditing,
+.adminAppointmentLayoutEditing {
+  grid-template-columns: minmax(0, 1fr) 410px;
+}
+
+.adminVehicleRegistry {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.adminVehicleGridEditing .adminVehicleRegistry {
+  grid-template-columns: 1fr;
+}
+
+.adminVehicleCard {
+  padding: 20px;
+}
+
+.adminVehicleCardHeader {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+}
+
+.adminVehicleCardHeader > div:nth-child(2),
+.adminVehicleCardHeader h2,
+.adminVehicleCardHeader small {
+  min-width: 0;
+}
+
+.adminVehicleCardHeader > div:nth-child(2) > span {
+  color: var(--lime-dark);
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.adminVehicleCardHeader h2 {
+  margin: 4px 0;
+  font-size: 0.96rem;
+}
+
+.adminVehicleCardHeader small {
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.64rem;
+}
+
+.adminVehicleCardHeader > div:last-child {
+  display: flex;
+  gap: 5px;
+}
+
+.adminVehicleCardHeader .iconButton {
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
+}
+
+.adminVehicleFacts {
+  margin-top: 18px;
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.adminVehicleFacts > span {
+  min-width: 0;
+  padding: 0 11px;
+  border-right: 1px solid var(--line);
+}
+
+.adminVehicleFacts > span:first-child {
+  padding-left: 0;
+}
+
+.adminVehicleFacts > span:last-child {
+  border-right: 0;
+}
+
+.adminVehicleFacts small,
+.adminVehicleFacts strong {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminVehicleFacts small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.adminVehicleFacts strong {
+  margin-top: 4px;
+  font-size: 0.68rem;
+}
+
+.adminCoverageLine {
+  margin-top: 13px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.adminCoverageLineActive {
+  color: var(--success);
+}
+
+.adminCoverageLine span,
+.adminCoverageLine strong,
+.adminCoverageLine small {
+  display: block;
+}
+
+.adminCoverageLine strong {
+  color: var(--ink);
+  font-size: 0.7rem;
+}
+
+.adminCoverageLine small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.61rem;
+}
+
+.adminEditorPanel {
+  position: sticky;
+  top: 28px;
+  padding: 22px;
+}
+
+.adminEditorHeading {
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.adminEditorHeading .kicker {
+  margin-bottom: 5px;
+}
+
+.adminEditorHeading h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.adminEditorForm,
+.adminAppointmentForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.adminLockedField {
+  min-height: 52px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  background: #f3f4ef;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.adminLockedField small,
+.adminLockedField strong {
+  display: block;
+}
+
+.adminLockedField small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.adminLockedField strong {
+  margin-top: 3px;
+  font-size: 0.72rem;
+}
+
+.adminRegistryEmpty {
+  min-height: 270px;
+  border: 1px dashed #bec2b8;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* Admin appointment schedule */
+.adminAppointmentList {
+  min-width: 0;
+  display: grid;
+  gap: 11px;
+}
+
+.adminAppointmentList > .adminListMeta {
+  border: 0;
+}
+
+.adminAppointmentRow {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 62px minmax(140px, 0.8fr) minmax(260px, 1.2fr) auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.adminAppointmentDate {
+  width: 62px;
+  height: 68px;
+  border: 1px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminAppointmentDate strong {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.adminAppointmentDate span {
+  margin-top: 4px;
+  font-size: 0.63rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.adminAppointmentDate small {
+  color: var(--muted);
+  font-size: 0.55rem;
+}
+
+.adminAppointmentPrimary,
+.adminAppointmentPrimary h2,
+.adminAppointmentPrimary p {
+  min-width: 0;
+}
+
+.adminAppointmentPrimary > span {
+  color: var(--lime-dark);
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.adminAppointmentPrimary h2 {
+  margin: 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.93rem;
+  white-space: nowrap;
+}
+
+.adminAppointmentPrimary p {
+  margin: 0;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.66rem;
+  white-space: nowrap;
+}
+
+.adminAppointmentMeta {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.adminAppointmentMeta > span {
+  min-width: 0;
+  padding: 0 12px;
+  border-right: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  column-gap: 6px;
+}
+
+.adminAppointmentMeta > span:first-child {
+  padding-left: 0;
+}
+
+.adminAppointmentMeta > span:last-child {
+  border-right: 0;
+}
+
+.adminAppointmentMeta svg {
+  grid-row: 1 / 3;
+  color: var(--muted);
+}
+
+.adminAppointmentMeta small,
+.adminAppointmentMeta strong {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminAppointmentMeta small {
+  color: var(--muted);
+  font-size: 0.56rem;
+  text-transform: uppercase;
+}
+
+.adminAppointmentMeta strong {
+  margin-top: 3px;
+  font-size: 0.64rem;
+}
+
+.adminAppointmentActions {
+  grid-column: 2 / -1;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adminAppointmentActions .button {
+  min-height: 38px;
+  padding-inline: 13px;
+  font-size: 0.69rem;
+}
+
+.adminInternalNote {
+  grid-column: 2 / -1;
+  min-width: 0;
+  padding: 9px 11px;
+  border-left: 3px solid #72c8e9;
+  background: #eef8fc;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.adminInternalNote strong {
+  flex: 0 0 auto;
+  color: #246178;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+}
+
+.adminInternalNote span {
+  color: var(--muted);
+  font-size: 0.65rem;
+  line-height: 1.4;
+}
+
+.adminAppointmentRow > .confirmStrip {
+  grid-column: 2 / -1;
+  margin-top: 0;
+}
+
+.adminAppointmentEditor .adminEditorHeading {
+  margin-bottom: 5px;
+}
+
+.fieldHint {
+  display: block;
+  margin-top: 5px;
+  color: var(--danger);
+  font-size: 0.63rem;
+}
+
+/* Admin memberships */
+.adminMembershipLayout {
+  display: grid;
+  grid-template-columns: minmax(390px, 0.72fr) minmax(0, 1.28fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.adminMembershipRow {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 76px;
+  padding: 11px 9px 11px 15px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  display: grid;
+  grid-template-columns: 4px minmax(120px, 1fr) 82px 82px auto;
+  align-items: center;
+  gap: 9px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.adminMembershipRow:hover,
+.adminMembershipRowActive {
+  background: #f1f3ed;
+}
+
+.adminMembershipPlanMark {
+  width: 4px;
+  height: 38px;
+  background: var(--lime);
+}
+
+.adminMembershipPlanMarkorange {
+  background: var(--orange);
+}
+
+.adminMembershipPlanMarkice {
+  background: #67c7ec;
+}
+
+.adminMembershipRow > span,
+.adminMembershipRow strong,
+.adminMembershipRow small {
+  min-width: 0;
+}
+
+.adminMembershipRow > span:not(.statusPill):not(.adminMembershipPlanMark),
+.adminMembershipRow strong,
+.adminMembershipRow small {
+  display: block;
+}
+
+.adminMembershipRow strong,
+.adminMembershipRow small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminMembershipRow strong {
+  font-size: 0.68rem;
+}
+
+.adminMembershipRow small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.58rem;
+}
+
+.adminCancelFlag {
+  position: absolute;
+  right: 10px;
+  bottom: 3px;
+  color: var(--danger) !important;
+  font-size: 0.52rem !important;
+  text-transform: uppercase;
+}
+
+.adminMembershipEditor {
+  padding: 24px;
+}
+
+.adminMembershipEditorHeader > .statusPill {
+  margin-left: auto;
+}
+
+.adminMembershipWarning {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid #e1b5ac;
+  background: #fff1ee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adminMembershipWarning > svg {
+  color: var(--danger);
+}
+
+.adminMembershipWarning > div {
+  min-width: 0;
+  margin-right: auto;
+}
+
+.adminMembershipWarning strong,
+.adminMembershipWarning small {
+  display: block;
+}
+
+.adminMembershipWarning strong {
+  font-size: 0.72rem;
+}
+
+.adminMembershipWarning small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.adminMembershipWarning .button {
+  min-height: 38px;
+  padding-inline: 12px;
+  font-size: 0.67rem;
+}
+
+.adminMembershipCurrent {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.adminMembershipCurrent > span {
+  min-width: 0;
+  padding: 0 14px;
+  border-right: 1px solid var(--line);
+}
+
+.adminMembershipCurrent > span:first-child {
+  padding-left: 0;
+}
+
+.adminMembershipCurrent > span:last-child {
+  border-right: 0;
+}
+
+.adminMembershipCurrent small,
+.adminMembershipCurrent strong {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminMembershipCurrent small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.adminMembershipCurrent strong {
+  margin-top: 5px;
+  font-size: 0.75rem;
+}
+
+.adminMembershipSection {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.adminMembershipSectionHeading {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.adminMembershipSectionHeading .kicker {
+  margin-bottom: 4px;
+}
+
+.adminMembershipSectionHeading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.adminMembershipSectionHeading p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+
+.adminSyncButton {
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.64rem;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.adminSyncButton:hover {
+  border-bottom-color: currentColor;
+  color: var(--ink);
+}
+
+.adminPlanSelector {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.adminPlanSelect {
+  position: relative;
+  min-width: 0;
+  min-height: 98px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--white);
+  text-align: left;
+  cursor: pointer;
+}
+
+.adminPlanSelect > span,
+.adminPlanSelect > strong,
+.adminPlanSelect > small {
+  display: block;
+}
+
+.adminPlanSelect > span {
+  color: var(--muted);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+}
+
+.adminPlanSelect > strong {
+  margin-top: 13px;
+  font-size: 0.9rem;
+}
+
+.adminPlanSelect > small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+
+.adminPlanSelect > i {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: transparent;
+  display: grid;
+  place-items: center;
+}
+
+.adminPlanSelectActive {
+  border-color: var(--ink);
+  box-shadow: inset 0 -3px 0 var(--lime);
+}
+
+.adminPlanSelector .adminPlanSelectorange.adminPlanSelectActive {
+  box-shadow: inset 0 -3px 0 var(--orange);
+}
+
+.adminPlanSelector .adminPlanSelectice.adminPlanSelectActive {
+  box-shadow: inset 0 -3px 0 #67c7ec;
+}
+
+.adminPlanSelectActive > i {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+
+.adminMembershipQuantity {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: #f4f5f0;
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) 140px minmax(120px, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.adminMembershipQuantity > div:first-child span,
+.adminMembershipQuantity > div:first-child small,
+.adminMembershipQuantity > div:last-child span,
+.adminMembershipQuantity > div:last-child strong {
+  display: block;
+}
+
+.adminMembershipQuantity > div:first-child span,
+.adminMembershipQuantity > div:last-child span {
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.adminMembershipQuantity > div:first-child small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+
+.adminMembershipQuantity > div:last-child {
+  text-align: right;
+}
+
+.adminMembershipQuantity > div:last-child strong {
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+.adminMembershipVehicles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.adminMembershipSaveBar {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.adminMembershipSaveBar span,
+.adminMembershipSaveBar strong,
+.adminMembershipSaveBar small {
+  display: block;
+}
+
+.adminMembershipSaveBar span {
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.adminMembershipSaveBar strong {
+  margin-top: 5px;
+  font-size: 0.75rem;
+}
+
+.adminMembershipSaveBar small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+
+.adminMembershipSaveBar .button {
+  flex: 0 0 auto;
+}
+
+.adminMembershipDanger {
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.adminMembershipDanger .kicker {
+  margin-bottom: 4px;
+}
+
+.adminMembershipDanger h3 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.adminMembershipDanger p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+.adminMembershipDanger > div:last-child {
+  display: flex;
+  gap: 8px;
+}
+
+.adminMembershipDanger .button {
+  min-height: 40px;
+  padding-inline: 12px;
+  font-size: 0.65rem;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.035); }
+  to { transform: scale(1); }
+}
+
+@keyframes heroCopyIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}

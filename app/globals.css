@@ -3363,21 +3363,6 @@ td:first-child small {
   gap: 9px;
 }
 
-@keyframes heroZoom {
-  from { transform: scale(1.035); }
-  to { transform: scale(1); }
-}
-
-@keyframes heroCopyIn {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes scrollPulse {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
-}
-
 @media (max-width: 1080px) {
   .siteNav { gap: 17px; }
   .heroCopyNew h1 { font-size: 4.6rem; }
@@ -3393,6 +3378,14 @@ td:first-child small {
   .portalLayout { grid-template-columns: 216px minmax(0, 1fr); }
   .portalMain { width: min(100% - 40px, 1180px); }
   .adminGrid { grid-template-columns: 1fr; }
+  .adminMain { width: min(100% - 40px, 1380px); }
+  .adminDashboardGrid,
+  .adminDashboardLower { grid-template-columns: 1fr; }
+  .adminMasterDetail { grid-template-columns: minmax(380px, 0.82fr) minmax(0, 1.18fr); }
+  .adminVehicleGridEditing,
+  .adminAppointmentLayoutEditing { grid-template-columns: minmax(0, 1fr) 360px; }
+  .adminMembershipLayout { grid-template-columns: minmax(340px, 0.68fr) minmax(0, 1.32fr); }
+  .adminAppointmentRow { grid-template-columns: 58px minmax(130px, 0.7fr) minmax(220px, 1.3fr) auto; gap: 12px; }
   .portalDashboardGrid { grid-template-columns: 1fr; }
   .vehicleWorkspaceGridEditing { grid-template-columns: minmax(0, 1fr) 340px; }
   .membershipEditor { grid-template-columns: minmax(0, 1fr) 310px; gap: 22px; }
@@ -3461,6 +3454,10 @@ td:first-child small {
   .sidebarUser { margin: 0; padding: 0; border: 0; grid-template-columns: 32px 34px; }
   .sidebarUser div { display: none; }
   .portalMain { width: min(100% - 32px, 1180px); padding-top: 24px; }
+  .adminMain { width: min(100% - 32px, 1380px); }
+  .adminSidebar nav { overflow-x: auto; }
+  .adminPortalLink { width: 42px; min-height: 42px; margin: 0; padding: 0; flex: 0 0 42px; justify-content: center; font-size: 0; }
+  .adminSidebar .sidebarUser { margin: 0; }
   .portalColumns { grid-template-columns: 1fr; }
   .adminMetrics { grid-template-columns: 1fr 1fr; }
   .adminMetrics > div:nth-child(2) { border-right: 0; }
@@ -3485,6 +3482,15 @@ td:first-child small {
   .membershipEditor { grid-template-columns: 1fr; }
   .membershipCheckoutPanel { position: static; }
   .coverageVehicleList { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adminMasterDetail,
+  .adminMembershipLayout,
+  .adminVehicleGridEditing,
+  .adminAppointmentLayoutEditing { grid-template-columns: 1fr; }
+  .adminVehicleGridEditing > .adminEditorPanel,
+  .adminAppointmentLayoutEditing > .adminAppointmentEditor { order: -1; }
+  .adminEditorPanel { position: static; }
+  .adminVehicleGridEditing .adminVehicleRegistry { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adminAppointmentRow { grid-template-columns: 62px minmax(140px, 0.75fr) minmax(250px, 1.25fr) auto; }
 }
 
 @media (max-width: 640px) {
@@ -3604,6 +3610,106 @@ td:first-child small {
   .adminMetrics > div,
   .adminMetrics > div:first-child { min-height: 124px; padding: 20px 0; border-right: 0; border-top: 1px solid var(--line); }
   .adminMetrics > div:first-child { border-top: 0; }
+  .adminCommandHeader .button { width: 100%; }
+  .adminCommandMetrics,
+  .adminWorkspaceStats { grid-template-columns: 1fr 1fr; }
+  .adminCommandMetrics > div,
+  .adminWorkspaceStats > div,
+  .adminCommandMetrics > div:first-child,
+  .adminWorkspaceStats > div:first-child { min-height: 98px; padding: 17px; border-top: 1px solid var(--line); }
+  .adminCommandMetrics > div:nth-child(odd),
+  .adminWorkspaceStats > div:nth-child(odd) { padding-left: 0; }
+  .adminCommandMetrics > div:nth-child(even),
+  .adminWorkspaceStats > div:nth-child(even) { padding-right: 0; border-right: 0; }
+  .adminCommandMetrics > div:first-child,
+  .adminCommandMetrics > div:nth-child(2),
+  .adminWorkspaceStats > div:first-child,
+  .adminWorkspaceStats > div:nth-child(2) { border-top: 0; }
+  .adminCommandMetrics strong,
+  .adminWorkspaceStats strong { font-size: 1.55rem; }
+  .adminDashboardGrid,
+  .adminDashboardLower { margin-top: 16px; gap: 16px; }
+  .adminSurface { padding: 18px 15px; }
+  .adminSurfaceHeading { align-items: flex-start; }
+  .adminScheduleRow { grid-template-columns: 88px 9px minmax(0, 1fr); gap: 10px; }
+  .adminScheduleRow .adminDetailer { grid-column: 3; }
+  .adminScheduleRow .statusPill { grid-column: 3; }
+  .adminPlanMixGrid { grid-template-columns: 1fr; }
+  .adminPlanMixGrid > div,
+  .adminPlanMixGrid > div:first-child,
+  .adminPlanMixGrid > div:last-child { padding: 16px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .adminPlanMixGrid > div:last-child { border-bottom: 0; }
+  .adminPlanSwatch { margin-bottom: 12px; }
+  .adminCustomerMiniRow { grid-template-columns: 34px minmax(0, 1fr) 16px; }
+  .adminCustomerMiniRow > div:nth-of-type(2) { display: none; }
+  .adminWorkspaceToolbar { align-items: stretch; flex-direction: column; }
+  .adminToolbarSelects { flex-direction: column; }
+  .adminToolbarSelects select { width: 100%; }
+  .adminListMeta { align-items: flex-start; flex-direction: column; justify-content: center; }
+  .adminCustomerList,
+  .adminMembershipList { padding: 13px; }
+  .adminCustomerRow { grid-template-columns: 34px minmax(0, 1fr) auto; }
+  .adminCustomerRow > span:nth-child(3) { display: none !important; }
+  .adminCustomerDetail { padding: 18px 15px; }
+  .adminContactGrid { grid-template-columns: 1fr; padding: 8px 0; }
+  .adminContactGrid > span,
+  .adminContactGrid > span:first-child,
+  .adminContactGrid > span:last-child { min-height: 54px; padding: 11px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .adminContactGrid > span:last-child { border-bottom: 0; }
+  .adminNotesForm { grid-template-columns: 1fr; }
+  .adminNotesForm .button,
+  .adminNotesForm .formMessage { grid-column: auto; width: 100%; }
+  .adminMembershipMini { grid-template-columns: 1fr; }
+  .adminMembershipMini > span { min-height: 58px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .adminMembershipMini > span:last-child { border-bottom: 0; }
+  .adminDetailSectionHeading { align-items: flex-start; }
+  .adminVehicleRegistry,
+  .adminVehicleGridEditing .adminVehicleRegistry { grid-template-columns: 1fr; }
+  .adminVehicleCard { padding: 16px 14px; }
+  .adminVehicleCardHeader { grid-template-columns: 42px minmax(0, 1fr) auto; gap: 9px; }
+  .adminVehicleCardHeader > div:last-child { flex-direction: column; }
+  .adminVehicleFacts { grid-template-columns: 1fr 1fr; row-gap: 12px; }
+  .adminVehicleFacts > span:nth-child(2) { border-right: 0; }
+  .adminVehicleFacts > span:nth-child(3) { padding: 0; grid-column: 1 / -1; }
+  .adminEditorPanel,
+  .adminMembershipEditor { padding: 18px 14px; }
+  .adminEditorForm,
+  .adminAppointmentForm { grid-template-columns: 1fr; }
+  .adminAppointmentRow { grid-template-columns: 56px minmax(0, 1fr) auto; padding: 15px 13px; gap: 11px; }
+  .adminAppointmentDate { width: 56px; height: 62px; }
+  .adminAppointmentMeta { grid-column: 2 / -1; grid-template-columns: 1fr; }
+  .adminAppointmentMeta > span,
+  .adminAppointmentMeta > span:first-child { min-height: 46px; padding: 9px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .adminAppointmentMeta > span:last-child { border-bottom: 0; }
+  .adminAppointmentActions,
+  .adminInternalNote,
+  .adminAppointmentRow > .confirmStrip { grid-column: 1 / -1; }
+  .adminAppointmentActions { align-items: stretch; flex-direction: column; }
+  .adminAppointmentActions .iconButton,
+  .adminAppointmentActions .button { width: 100%; }
+  .adminAppointmentActions .textButtonDanger { align-self: flex-start; }
+  .adminMembershipRow { grid-template-columns: 4px minmax(0, 1fr) auto; }
+  .adminMembershipRow > span:nth-child(3),
+  .adminMembershipRow > span:nth-child(4) { display: none !important; }
+  .adminMembershipEditorHeader { align-items: flex-start; flex-wrap: wrap; }
+  .adminMembershipEditorHeader > .statusPill { margin-left: 62px; }
+  .adminMembershipWarning { align-items: flex-start; flex-wrap: wrap; }
+  .adminMembershipWarning .button { width: 100%; }
+  .adminMembershipCurrent { grid-template-columns: 1fr; padding: 8px 0; }
+  .adminMembershipCurrent > span,
+  .adminMembershipCurrent > span:first-child { min-height: 54px; padding: 11px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .adminMembershipCurrent > span:last-child { border-bottom: 0; }
+  .adminMembershipSectionHeading { align-items: flex-start; }
+  .adminPlanSelector { grid-template-columns: 1fr; }
+  .adminPlanSelect { min-height: 86px; }
+  .adminMembershipQuantity { grid-template-columns: 1fr; }
+  .adminMembershipQuantity > div:last-child { text-align: left; }
+  .adminMembershipVehicles { grid-template-columns: 1fr; }
+  .adminMembershipSaveBar,
+  .adminMembershipDanger { align-items: stretch; flex-direction: column; }
+  .adminMembershipSaveBar .button { width: 100%; }
+  .adminMembershipDanger > div:last-child { flex-direction: column; }
+  .adminMembershipDanger .button { width: 100%; }
   .portalOverviewHeader .button,
   .portalSubpageHeader .button { width: 100%; }
   .portalMetricsFour { grid-template-columns: 1fr; }

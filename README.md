@@ -8,7 +8,11 @@ Full-stack Next.js membership platform for recurring auto detailing. It includes
 - `/membership` per-vehicle plan configurator with live monthly totals
 - `/account` account creation and sign in
 - `/portal` member vehicles, visits, plan status, and Stripe billing access
-- `/admin` membership health, service queue, and searchable member records
+- `/admin` live operations dashboard with schedule, billing, and account alerts
+- `/admin/customers` searchable customer records, contact details, notes, vehicles, and service history
+- `/admin/appointments` create, assign, reschedule, progress, complete, and cancel appointments
+- `/admin/memberships` change plans and care slots, assign vehicles, sync Stripe, cancel, or resume
+- `/admin/vehicles` add, edit, search, and remove vehicles across customer accounts
 - `/api/webhooks/stripe` subscription lifecycle synchronization
 - `/api/health` Render health check
 
@@ -55,6 +59,8 @@ ADMIN_EMAILS=owner@lucentautodetail.com,manager@lucentautodetail.com
 ```
 
 Accounts created with an allowlisted email receive admin access. Existing sessions should sign out and back in after the allowlist changes.
+
+The admin console is backed by the same PostgreSQL records and Stripe subscriptions as the member portal. Without database credentials it opens in a read-safe preview with simulated mutations, which is useful for interface review but does not persist changes.
 
 ## Render Deployment
 

@@ -3,11 +3,7 @@ import { getSession } from "../../../lib/auth";
 import { hasDatabase, query, withTransaction } from "../../../lib/db";
 import { getPlan } from "../../../lib/plans";
 import { getStripe, hasStripe } from "../../../lib/stripe";
-
-function subscriptionPeriodEnd(subscription) {
-  const value = subscription.current_period_end || subscription.items?.data?.[0]?.current_period_end;
-  return value ? new Date(value * 1000) : null;
-}
+import { subscriptionPeriodEnd, updateSubscriptionPlan } from "../../../lib/subscriptions";
 
 function previewMembership(body) {
   return {
@@ -66,31 +62,13 @@ export async function PATCH(request) {
       if (owned.rows.length !== vehicleIds.length) return NextResponse.json({ error: "One or more vehicles could not be assigned." }, { status: 400 });
     }
 
-    const subscription = await stripe.subscriptions.retrieve(membership.stripe_subscription_id);
-    const item = subscription.items?.data?.[0];
-    if (!item) return NextResponse.json({ error: "The Stripe subscription has no billable item." }, { status: 409 });
-
-    const subscriptionItem = { id: item.id, quantity: vehicleCount };
-    if (membership.plan_code !== plan.code) {
-      const price = await stripe.prices.create({
-        currency: "usd",
-        unit_amount: plan.price * 100,
-        recurring: { interval: "month" },
-        nickname: `Lucent ${plan.name} monthly per vehicle`,
-        metadata: { plan_code: plan.code },
-        product_data: {
-          name: `Lucent ${plan.name} vehicle care`,
-          description: `${plan.visits} - ${plan.audience}`,
-          metadata: { plan_code: plan.code }
-        }
-      });
-      subscriptionItem.price = price.id;
-    }
-
-    const updated = await stripe.subscriptions.update(membership.stripe_subscription_id, {
-      items: [subscriptionItem],
-      proration_behavior: "create_prorations",
-      metadata: { ...subscription.metadata, user_id: session.id, plan_code: plan.code, vehicle_count: String(vehicleCount) }
+    const updated = await updateSubscriptionPlan({
+      stripe,
+      subscriptionId: membership.stripe_subscription_id,
+      currentPlanCode: membership.plan_code,
+      plan,
+      vehicleCount,
+      metadata: { user_id: session.id, plan_code: plan.code, vehicle_count: String(vehicleCount) }
     });
 
     const savedMembership = await withTransaction(async (transactionQuery) => {

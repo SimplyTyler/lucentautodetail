@@ -1,3 +1,4 @@
+import "./admin/admin.css";
 import "./globals.css";
 
 export const metadata = {
