@@ -1,256 +1,146 @@
+import Image from "next/image";
+import Link from "next/link";
 import {
+  ArrowDown,
   ArrowRight,
-  BadgeCheck,
-  Droplets,
+  Building2,
+  CalendarCheck,
+  CarFront,
+  Check,
+  ClipboardCheck,
   Gauge,
-  Gem,
-  MapPin,
-  Phone,
-  Send,
+  KeyRound,
+  Layers3,
   ShieldCheck,
-  Sparkles,
-  SprayCan,
-  Timer
+  Sparkles
 } from "lucide-react";
+import { MembershipConfigurator } from "../components/membership-configurator";
+import { Reveal } from "../components/reveal";
+import { SiteFooter } from "../components/site-footer";
+import { SiteHeader } from "../components/site-header";
 
-const services = [
-  {
-    icon: Sparkles,
-    title: "Signature Detail",
-    text: "A balanced reset for paint, wheels, glass, trim, cabin surfaces, and finishing protection."
-  },
-  {
-    icon: ShieldCheck,
-    title: "Ceramic Protection",
-    text: "Durable hydrophobic protection for gloss retention, easier washes, and stronger daily defense."
-  },
-  {
-    icon: SprayCan,
-    title: "Interior Revival",
-    text: "Deep cleaning for carpets, mats, leather, vinyl, vents, cup holders, glass, and odor-prone areas."
-  },
-  {
-    icon: Droplets,
-    title: "Maintenance Wash",
-    text: "A careful upkeep service for vehicles already corrected, coated, or regularly maintained."
-  }
+const process = [
+  { number: "01", icon: CarFront, title: "Build your garage", text: "Create an account and add each daily, collector, or business vehicle." },
+  { number: "02", icon: Layers3, title: "Choose the care level", text: "One clear monthly rate per vehicle, matched to how each one is used." },
+  { number: "03", icon: CalendarCheck, title: "Set the rhythm", text: "Request service windows from your portal and keep every visit organized." },
+  { number: "04", icon: ClipboardCheck, title: "Track every finish", text: "See vehicles, membership status, visit history, and billing in one place." }
 ];
-
-const packages = [
-  {
-    name: "Refresh",
-    price: "From $149",
-    detail: "For clean vehicles that need a crisp reset.",
-    items: ["Foam hand wash", "Wheel and tire detail", "Interior wipe-down", "Glass and final gloss"]
-  },
-  {
-    name: "Lucent",
-    price: "From $299",
-    detail: "The core full detail for daily drivers.",
-    items: ["Decontamination wash", "Light paint enhancement", "Deep interior clean", "SiO2 sealant finish"]
-  },
-  {
-    name: "Shield",
-    price: "Custom quote",
-    detail: "For correction, coating, and long-term protection.",
-    items: ["Paint inspection", "Machine polishing", "Ceramic coating options", "Aftercare plan"]
-  }
-];
-
-const proof = [
-  ["8+", "detail steps per visit"],
-  ["100%", "hand-finished inspection"],
-  ["24 hr", "quote response target"]
-];
-
-const bookingHref =
-  "mailto:hello@lucentautodetail.com?subject=Book%20Lucent%20Auto%20Detail&body=Vehicle%3A%0AService%3A%0APreferred%20date%2Ftime%3A%0ACondition%20notes%3A";
 
 export default function Home() {
   return (
     <main>
-      <section className="hero" id="top">
-        <nav className="nav" aria-label="Primary navigation">
-          <a className="brand" href="#top" aria-label="Lucent Auto Detail home">
-            <span className="brandMark">L</span>
-            <span>Lucent Auto Detail</span>
-          </a>
-          <div className="navLinks">
-            <a href="#services">Services</a>
-            <a href="#packages">Packages</a>
-            <a href="#book">Book</a>
-            <a className="navButton" href={bookingHref}>
-              Book now
-            </a>
-          </div>
-        </nav>
-
-        <div className="heroGrid">
-          <div className="heroCopy">
-            <p className="eyebrow heroEyebrow">Premium auto detailing</p>
-            <h1>
-              <span>Lucent</span>
-              <span>Auto</span>
-              <span>Detail</span>
-            </h1>
-            <p className="heroLead">
-              Gloss-focused detailing for drivers who want careful paintwork, spotless interiors, and protection
-              that keeps the finish easy to love.
-            </p>
-            <div className="heroActions">
-              <a className="primaryButton" href={bookingHref}>
-                Book now <ArrowRight size={18} aria-hidden="true" />
-              </a>
-              <a className="ghostButton" href="#packages">
-                View packages
-              </a>
+      <section className="homeHero">
+        <Image className="homeHeroImage" src="/lucent-hero-v2.jpg" alt="Graphite exotic coupe inside a precision detailing studio" fill priority sizes="100vw" />
+        <div className="homeHeroOverlay" />
+        <SiteHeader />
+        <div className="homeHeroInner">
+          <div className="heroCopyNew">
+            <span className="heroBadge"><Sparkles size={15} aria-hidden="true" /> Membership auto detailing</span>
+            <h1>Lucent auto care, on repeat.</h1>
+            <p>Precision detailing for the cars you love and the vehicles your business depends on, managed by the month.</p>
+            <div className="heroButtons">
+              <Link className="button buttonLime" href="/membership">Build your plan <ArrowRight size={18} aria-hidden="true" /></Link>
+              <Link className="button buttonGlass" href="/account?mode=signup">Create an account</Link>
             </div>
           </div>
-
-          <div className="heroPanel" aria-label="Detailing highlights">
-            <div>
-              <Gauge size={20} aria-hidden="true" />
-              <span>Paint-safe process</span>
-            </div>
-            <div>
-              <Gem size={20} aria-hidden="true" />
-              <span>High-gloss finish</span>
-            </div>
-            <div>
-              <Timer size={20} aria-hidden="true" />
-              <span>Maintenance plans</span>
-            </div>
+          <div className="heroSpecRail" aria-label="Membership benefits">
+            <div><Gauge size={19} /><span>Monthly care</span><strong>Built around usage</strong></div>
+            <div><ShieldCheck size={19} /><span>Finish first</span><strong>Process documented</strong></div>
+            <div><KeyRound size={19} /><span>One portal</span><strong>Garage + billing</strong></div>
           </div>
         </div>
-        <div className="scrollCue" aria-hidden="true">
-          <span />
-        </div>
+        <a className="heroScroll" href="#memberships" aria-label="Explore memberships"><ArrowDown size={18} /></a>
       </section>
 
-      <section className="proofStrip" aria-label="Lucent service proof points">
-        {proof.map(([value, label]) => (
-          <div key={label}>
-            <strong>{value}</strong>
-            <span>{label}</span>
-          </div>
-        ))}
+      <section className="statementBand">
+        <p>Not another wash club.</p>
+        <h2>Detail-level care with a schedule that actually keeps up.</h2>
       </section>
 
-      <section className="section services" id="services">
-        <div className="sectionHeader">
-          <p className="eyebrow">Services</p>
-          <h2>Everything your vehicle needs to feel newly finished.</h2>
-        </div>
-        <div className="serviceGrid">
-          {services.map(({ icon: Icon, title, text }) => (
-            <article className="serviceCard" key={title}>
-              <Icon size={28} aria-hidden="true" />
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </article>
-          ))}
-        </div>
+      <section className="sectionShell membershipsSection" id="memberships">
+        <Reveal className="sectionIntro">
+          <span className="kicker">Memberships</span>
+          <h2>One vehicle or fifty. Give each one the right level of care.</h2>
+          <p>Choose a plan, set the vehicle count, and see the monthly total before opening secure Stripe checkout.</p>
+        </Reveal>
+        <Reveal delay={120}><MembershipConfigurator compact /></Reveal>
       </section>
 
-      <section className="processTicker" aria-label="Detailing process">
-        <div>
-          <span>Foam wash</span>
-          <span>Paint decon</span>
-          <span>Interior reset</span>
-          <span>Gloss enhancement</span>
-          <span>Ceramic protection</span>
-          <span>Final inspection</span>
-          <span>Foam wash</span>
-          <span>Paint decon</span>
-          <span>Interior reset</span>
-          <span>Gloss enhancement</span>
-          <span>Ceramic protection</span>
-          <span>Final inspection</span>
+      <section className="collectorFeature" id="collectors">
+        <div className="collectorImage">
+          <Image
+            src="/hero-detailing-hd.jpg"
+            alt="Collector car in a clean detailing bay"
+            fill
+            sizes="(max-width: 900px) 100vw, 54vw"
+          />
         </div>
-      </section>
-
-      <section className="featureBand">
-        <div className="featureImage" aria-label="Freshly detailed vehicle finish" />
-        <div className="featureCopy">
-          <p className="eyebrow">The Lucent standard</p>
-          <h2>Clean work, clear expectations, and a finish that holds attention.</h2>
-          <p>
-            Every service is built around inspection, safe-contact washing, targeted correction, and the right
-            protection for how the vehicle is actually driven.
-          </p>
-          <ul>
-            <li>
-              <BadgeCheck size={19} aria-hidden="true" />
-              Paint, wheels, glass, trim, and interior surfaces reviewed before delivery.
-            </li>
-            <li>
-              <BadgeCheck size={19} aria-hidden="true" />
-              Package recommendations are matched to the vehicle condition, not a one-size menu.
-            </li>
+        <Reveal className="collectorCopy">
+          <span className="kicker kickerOrange">For collector garages</span>
+          <h2>Delicate finishes deserve a consistent hand.</h2>
+          <p>Reserve care is built for low-mileage, high-attention vehicles. Wash chemistry, tools, and protection are matched to the finish, with notes kept against the vehicle.</p>
+          <ul className="featureTicks">
+            <li><Check size={17} /> Finish-specific service</li>
+            <li><Check size={17} /> Priority scheduling</li>
+            <li><Check size={17} /> Quarterly protection refresh</li>
           </ul>
+          <Link className="textLink" href="/membership?plan=reserve">Explore Reserve <ArrowRight size={17} /></Link>
+        </Reveal>
+      </section>
+
+      <section className="fleetFeature" id="fleets">
+        <Image src="/lucent-fleet-v2.jpg" alt="A coordinated group of clean business vehicles outside a detailing facility" fill sizes="100vw" />
+        <div className="fleetOverlay" />
+        <Reveal className="fleetCopy">
+          <span className="kicker kickerIce"><Building2 size={15} /> For business fleets</span>
+          <h2>Every vehicle arrives looking like it belongs to the same company.</h2>
+          <p>Group service windows, per-vehicle records, and centralized billing keep fleet presentation sharp without turning it into another operations project.</p>
+          <Link className="button buttonLight" href="/membership?plan=fleet">Build a fleet plan <ArrowRight size={18} /></Link>
+        </Reveal>
+        <div className="fleetStats">
+          <div><strong>5–50</strong><span>vehicles per plan</span></div>
+          <div><strong>1×</strong><span>monthly service</span></div>
+          <div><strong>1</strong><span>consolidated account</span></div>
         </div>
       </section>
 
-      <section className="section packages" id="packages">
-        <div className="sectionHeader">
-          <p className="eyebrow">Packages</p>
-          <h2>Start with the right level of care.</h2>
-        </div>
-        <div className="packageGrid">
-          {packages.map((pkg) => (
-            <article className="packageCard" key={pkg.name}>
-              <div>
-                <h3>{pkg.name}</h3>
-                <strong>{pkg.price}</strong>
-                <p>{pkg.detail}</p>
-              </div>
-              <ul>
-                {pkg.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
+      <section className="sectionShell processSection" id="process">
+        <Reveal className="sectionIntro processIntro">
+          <span className="kicker">How it works</span>
+          <h2>From signup to spotless, without the back-and-forth.</h2>
+        </Reveal>
+        <div className="processGrid">
+          {process.map(({ number, icon: Icon, title, text }, index) => (
+            <Reveal className="processStep" delay={index * 80} key={number}>
+              <span>{number}</span><Icon size={22} aria-hidden="true" /><h3>{title}</h3><p>{text}</p>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="bookBand" id="book">
-        <div className="bookCopy">
-          <p className="eyebrow">Book</p>
-          <h2>Ready for a cleaner, glossier drive?</h2>
-          <p>
-            Tap book now and send your vehicle, service goal, preferred date, and a few photos. Lucent will reply with
-            the best package and next available time.
-          </p>
-          <div className="contactRows">
-            <a href="tel:+10000000000">
-              <Phone size={18} aria-hidden="true" />
-              <span>Add your phone number</span>
-            </a>
-            <a href="mailto:hello@lucentautodetail.com">
-              <Send size={18} aria-hidden="true" />
-              <span>hello@lucentautodetail.com</span>
-            </a>
-            <span>
-              <MapPin size={18} aria-hidden="true" />
-              <span>Service area ready to customize</span>
-            </span>
+      <section className="portalPreviewBand">
+        <Reveal className="portalPreviewCopy">
+          <span className="kicker">Member portal</span>
+          <h2>Your whole garage, in view.</h2>
+          <p>Add vehicles, request the next service, see membership status, and open Stripe billing from a dashboard designed for quick decisions.</p>
+          <Link className="button buttonLime" href="/account?mode=signup">Create your account <ArrowRight size={18} /></Link>
+        </Reveal>
+        <Reveal className="portalMock" delay={120}>
+          <div className="portalMockTop"><span /><strong>Good morning, Alex</strong><small>Reserve member</small></div>
+          <div className="portalMockMetrics"><span><small>Vehicles</small><strong>02</strong></span><span><small>Next visit</small><strong>Jul 24</strong></span><span><small>Plan</small><strong>Active</strong></span></div>
+          <div className="portalMockRows">
+            <div><CarFront size={19} /><span><strong>2024 Porsche 911 GT3</strong><small>Collector · Graphite</small></span><i>Ready</i></div>
+            <div><CarFront size={19} /><span><strong>2023 Range Rover Sport</strong><small>Daily · Santorini black</small></span><i>Ready</i></div>
           </div>
-        </div>
-        <div className="bookingCard" aria-label="Book Lucent Auto Detail">
-          <div className="bookingGlow" aria-hidden="true" />
-          <p>Next detail starts here</p>
-          <h3>Send the vehicle details. Get a tailored booking window.</h3>
-          <a className="primaryButton" href={bookingHref}>
-            Book now <ArrowRight size={18} aria-hidden="true" />
-          </a>
-          <div className="bookingSteps">
-            <span>01 Vehicle</span>
-            <span>02 Service goal</span>
-            <span>03 Photos</span>
-          </div>
-        </div>
+        </Reveal>
       </section>
+
+      <section className="closingCta">
+        <span>Precision care. Consistently.</span>
+        <h2>Put your vehicles on a better schedule.</h2>
+        <div><Link className="button buttonDark" href="/membership">Build your plan <ArrowRight size={18} /></Link><Link className="textLink" href="/account">Member sign in</Link></div>
+      </section>
+      <SiteFooter />
     </main>
   );
 }
