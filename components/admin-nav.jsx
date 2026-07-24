@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CalendarClock, CarFront, CreditCard, ExternalLink, LayoutDashboard, LogOut, UsersRound } from "lucide-react";
+import { CalendarClock, CarFront, CreditCard, ExternalLink, LayoutDashboard, LogOut, ReceiptText, UsersRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Logo } from "./logo";
 
@@ -9,6 +9,7 @@ const links = [
   ["Dashboard", "/admin", LayoutDashboard],
   ["Customers", "/admin/customers", UsersRound],
   ["Appointments", "/admin/appointments", CalendarClock],
+  ["Invoices", "/admin/invoices", ReceiptText],
   ["Memberships", "/admin/memberships", CreditCard],
   ["Vehicles", "/admin/vehicles", CarFront]
 ];

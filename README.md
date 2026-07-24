@@ -1,6 +1,6 @@
 # Lucent Auto Detail
 
-Full-stack Next.js membership platform for recurring auto detailing. It includes a public plan builder, account creation and login, a member garage and service-request portal, an operations admin view, PostgreSQL persistence, Stripe subscriptions, and Render infrastructure configuration.
+Full-stack Next.js membership and CRM platform for recurring auto detailing. It includes a public plan builder, account creation and login, a member garage and service-request portal, customer relationship management, Stripe subscriptions and invoicing, PostgreSQL persistence, and Render infrastructure configuration.
 
 ## Product Surfaces
 
@@ -9,8 +9,9 @@ Full-stack Next.js membership platform for recurring auto detailing. It includes
 - `/account` account creation and sign in
 - `/portal` member vehicles, visits, plan status, and Stripe billing access
 - `/admin` live operations dashboard with schedule, billing, and account alerts
-- `/admin/customers` searchable customer records, contact details, notes, vehicles, and service history
+- `/admin/customers` editable customer and billing profiles, lifecycle stages, tags, relationship activity, follow-ups, vehicles, invoices, and service history
 - `/admin/appointments` create, assign, reschedule, progress, complete, and cancel appointments
+- `/admin/invoices` create itemized Stripe invoices, save drafts, send or resend hosted payment pages, download PDFs, void open invoices, and delete drafts
 - `/admin/memberships` change plans and care slots, assign vehicles, sync Stripe, cancel, or resume
 - `/admin/vehicles` add, edit, search, and remove vehicles across customer accounts
 - `/api/webhooks/stripe` subscription lifecycle synchronization
@@ -44,11 +45,14 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 In the Stripe Dashboard:
 
 1. Configure the customer portal for subscription cancellation, payment-method updates, invoices, and any quantity changes you want members to manage.
-2. Add a webhook endpoint at `https://YOUR_DOMAIN/api/webhooks/stripe`.
-3. Subscribe it to `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, and `customer.subscription.deleted`.
-4. Test the full flow with Stripe sandbox keys before replacing them with live-mode keys.
+2. Configure your business identity, invoice branding, support contact, and customer email settings under Stripe Invoicing.
+3. Add a webhook endpoint at `https://YOUR_DOMAIN/api/webhooks/stripe`.
+4. Subscribe it to `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, and `customer.subscription.deleted`.
+5. Test subscriptions and invoice emails with Stripe sandbox keys before replacing them with live-mode keys.
 
 Checkout uses recurring `price_data`, so the plan amounts in `lib/plans.js` are the source of truth. Each Stripe line-item quantity equals the number of vehicles on the membership.
+
+The app uses Stripe-hosted Checkout, the customer portal, and hosted invoice pages, so a publishable key is not required. Invoice status is read directly from Stripe whenever the CRM loads; invoice webhook events are not required for the current implementation.
 
 ## Admin Access
 
@@ -60,7 +64,7 @@ ADMIN_EMAILS=owner@lucentautodetail.com,manager@lucentautodetail.com
 
 Accounts created with an allowlisted email receive admin access. Existing sessions should sign out and back in after the allowlist changes.
 
-The admin console is backed by the same PostgreSQL records and Stripe subscriptions as the member portal. Without database credentials it opens in a read-safe preview with simulated mutations, which is useful for interface review but does not persist changes.
+The admin console is backed by the same PostgreSQL records, Stripe customers, subscriptions, and invoices as the member portal. Customer billing identity changes are synchronized to Stripe when a customer is already linked. Without database credentials it opens in a read-safe preview with simulated mutations, which is useful for interface review but does not persist changes or send email.
 
 ## Render Deployment
 

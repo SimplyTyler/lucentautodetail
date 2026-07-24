@@ -1,6 +1,6 @@
 /* Admin operations console */
-.adminMain {
-  width: min(1380px, calc(100% - 64px));
+.portalMain.adminMain {
+  width: min(1580px, calc(100% - 64px));
 }
 
 .adminSidebar .logoMark {
@@ -26,6 +26,18 @@
   color: var(--white);
 }
 
+.portalSidebar,
+.portalSidebar nav,
+.segmentedControl {
+  scrollbar-width: none;
+}
+
+.portalSidebar::-webkit-scrollbar,
+.portalSidebar nav::-webkit-scrollbar,
+.segmentedControl::-webkit-scrollbar {
+  display: none;
+}
+
 .adminSidebar .sidebarUser {
   margin-top: 14px;
 }
@@ -36,6 +48,12 @@
 
 .adminCommandHeader h1 {
   max-width: 780px;
+}
+
+.adminHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .adminCommandMetrics,
@@ -1569,6 +1587,1204 @@
   min-height: 40px;
   padding-inline: 12px;
   font-size: 0.65rem;
+}
+
+/* CRM customer records */
+.adminCrmLayout {
+  grid-template-columns: minmax(350px, 0.62fr) minmax(0, 1.38fr);
+}
+
+.adminCrmCustomerDetail {
+  padding: 24px;
+}
+
+.adminCrmHeader > .statusPill {
+  margin-left: auto;
+}
+
+.adminCrmQuickActions {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.adminCrmQuickActions > a {
+  min-width: 0;
+  min-height: 42px;
+  padding: 0 10px;
+  border-right: 1px solid var(--line);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 0.66rem;
+  font-weight: 760;
+}
+
+.adminCrmQuickActions > a:last-child {
+  border-right: 0;
+}
+
+.adminCrmQuickActions > a:hover {
+  color: var(--ink);
+}
+
+.adminCrmContactGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.adminCrmSection {
+  padding-top: 23px;
+}
+
+.adminCrmSection + .adminCrmSection {
+  margin-top: 23px;
+  border-top: 1px solid var(--line);
+}
+
+.adminCrmSectionHeading {
+  min-width: 0;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.adminCrmSectionHeading > div {
+  min-width: 0;
+}
+
+.adminCrmSectionHeading .kicker {
+  margin-bottom: 4px;
+}
+
+.adminCrmSectionHeading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.adminCrmSectionHeading > span,
+.adminCrmSectionHeading > a {
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.62rem;
+  font-weight: 720;
+}
+
+.adminCrmSectionHeading > a:hover {
+  color: var(--ink);
+}
+
+.adminCrmProfileForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.adminTagInput,
+.adminMoneyInput {
+  position: relative;
+}
+
+.adminTagInput > svg {
+  position: absolute;
+  z-index: 1;
+  left: 12px;
+  top: 15px;
+  color: var(--muted);
+}
+
+.adminTagInput input {
+  padding-left: 38px;
+}
+
+.adminCrmSaveBar {
+  min-height: 50px;
+  padding-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.adminCrmSaveBar > span {
+  min-width: 0;
+}
+
+.adminCrmSaveBar small {
+  font-size: 0.67rem;
+  line-height: 1.4;
+}
+
+.formMessageWarning {
+  color: #94611b;
+}
+
+.adminCrmSaveBar .button {
+  flex: 0 0 auto;
+}
+
+.adminCrmBillingBand {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--line);
+}
+
+.adminCrmBillingBand > span {
+  min-width: 0;
+  min-height: 76px;
+  padding: 13px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.adminCrmBillingBand > span:last-child {
+  border-right: 0;
+}
+
+.adminCrmBillingBand small,
+.adminCrmBillingBand strong,
+.adminCrmBillingBand a {
+  min-width: 0;
+  display: block;
+}
+
+.adminCrmBillingBand small {
+  color: var(--muted);
+  font-size: 0.56rem;
+  text-transform: uppercase;
+}
+
+.adminCrmBillingBand strong {
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.72rem;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.adminCrmBillingBand a {
+  width: fit-content;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.58rem;
+  text-decoration: underline;
+}
+
+.adminCrmInvoiceList {
+  margin-top: 8px;
+}
+
+.adminCrmInvoiceList > a {
+  min-width: 0;
+  min-height: 62px;
+  padding: 9px 3px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 5px minmax(130px, 1fr) minmax(84px, auto) auto 16px;
+  align-items: center;
+  gap: 10px;
+}
+
+.adminCrmInvoiceList > a:hover {
+  background: #f3f4ef;
+}
+
+.adminCrmInvoiceList > a > span,
+.adminCrmInvoiceList strong,
+.adminCrmInvoiceList small {
+  min-width: 0;
+  display: block;
+}
+
+.adminCrmInvoiceList strong,
+.adminCrmInvoiceList small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminCrmInvoiceList strong {
+  font-size: 0.69rem;
+}
+
+.adminCrmInvoiceList small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.59rem;
+}
+
+.adminCrmInvoiceList > a > svg {
+  color: var(--muted);
+}
+
+.adminActivityComposer {
+  padding: 15px;
+  border: 1px solid var(--line);
+  background: #f4f5f0;
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr) 150px;
+  gap: 11px;
+}
+
+.adminActivitySubjectWide {
+  grid-column: 2 / -1;
+}
+
+.adminActivityComposerActions {
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.adminActivityComposerActions > span {
+  min-width: 0;
+}
+
+.adminActivityComposerActions small {
+  font-size: 0.65rem;
+}
+
+.adminActivityComposerActions .button {
+  flex: 0 0 auto;
+}
+
+.adminActivityTimeline {
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.adminActivityItem {
+  position: relative;
+  min-width: 0;
+  min-height: 82px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 11px;
+}
+
+.adminActivityItemComplete {
+  opacity: 0.68;
+}
+
+.adminActivityIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  background: #eceee8;
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+}
+
+.adminActivityIconfollow_up {
+  background: #fff0ec;
+  color: var(--danger);
+}
+
+.adminActivityIconcall {
+  background: #e9f7fc;
+  color: #27677d;
+}
+
+.adminActivityIconemail,
+.adminActivityIcontext {
+  background: #eff7dc;
+  color: #5f790e;
+}
+
+.adminActivityItem > div:nth-child(2),
+.adminActivityItem > div:nth-child(2) > * {
+  min-width: 0;
+}
+
+.adminActivityItem > div:nth-child(2) > span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.56rem;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.adminActivityItem > div:nth-child(2) > strong {
+  margin-top: 5px;
+  display: block;
+  font-size: 0.73rem;
+}
+
+.adminActivityItem > div:nth-child(2) > p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.65rem;
+  line-height: 1.45;
+}
+
+.adminActivityItem > div:nth-child(2) > small {
+  margin-top: 7px;
+  color: var(--success);
+  display: block;
+  font-size: 0.59rem;
+  font-weight: 740;
+}
+
+.adminActivityItem > div:nth-child(2) > .adminDueOverdue {
+  color: var(--danger);
+}
+
+.adminActivityActions {
+  display: flex;
+  gap: 5px;
+}
+
+.adminActivityActions .iconButton {
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
+}
+
+.adminActivityConfirm {
+  grid-column: 2 / -1;
+  padding: 9px 10px;
+  border: 1px solid #e3b9b1;
+  background: #fff3f0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.adminActivityConfirm span {
+  margin-right: auto;
+  font-size: 0.64rem;
+  font-weight: 720;
+}
+
+.adminActivityConfirm button {
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  font-size: 0.61rem;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.adminActivityConfirm button:last-child {
+  border-color: var(--danger);
+  background: var(--danger);
+  color: var(--white);
+}
+
+.adminCrmSplitSections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.adminCrmSplitSections > div + div {
+  padding-left: 24px;
+  border-left: 1px solid var(--line);
+}
+
+/* Stripe invoice workspace */
+.adminStripeNotice {
+  min-height: 66px;
+  padding: 13px 16px;
+  border: 1px solid #d7af73;
+  background: #fff8e9;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.adminStripeNotice > svg {
+  color: #94611b;
+}
+
+.adminStripeNoticeError {
+  border-color: #e1b5ac;
+  background: #fff1ee;
+}
+
+.adminStripeNoticeError > svg {
+  color: var(--danger);
+}
+
+.adminStripeNotice div,
+.adminStripeNotice strong,
+.adminStripeNotice span {
+  min-width: 0;
+  display: block;
+}
+
+.adminStripeNotice strong {
+  font-size: 0.73rem;
+}
+
+.adminStripeNotice span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+.adminInvoiceLayout {
+  display: grid;
+  grid-template-columns: minmax(500px, 0.9fr) minmax(380px, 1.1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.adminInvoiceLayoutEditing {
+  grid-template-columns: minmax(430px, 1fr) 460px;
+}
+
+.adminInvoiceList,
+.adminInvoiceDetail,
+.adminInvoiceEditor {
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--white);
+}
+
+.adminInvoiceRow {
+  width: 100%;
+  min-width: 0;
+  min-height: 74px;
+  padding: 10px 8px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  display: grid;
+  grid-template-columns: 5px minmax(130px, 1fr) 105px 132px auto;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.adminInvoiceRow:hover,
+.adminInvoiceRowActive {
+  background: #f1f3ed;
+}
+
+.adminInvoiceRow > span,
+.adminInvoiceRow strong,
+.adminInvoiceRow small {
+  min-width: 0;
+}
+
+.adminInvoiceRow > span:not(.statusPill):not(.adminInvoiceStatusMark),
+.adminInvoiceRow strong,
+.adminInvoiceRow small {
+  display: block;
+}
+
+.adminInvoiceRow strong,
+.adminInvoiceRow small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminInvoiceRow strong {
+  font-size: 0.68rem;
+}
+
+.adminInvoiceRow small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.58rem;
+}
+
+.adminInvoiceStatusMark {
+  width: 5px;
+  height: 38px;
+  background: #abb0a6;
+}
+
+.adminInvoiceStatusMarkdraft {
+  background: #7d8479;
+}
+
+.adminInvoiceStatusMarkopen {
+  background: #54b9dd;
+}
+
+.adminInvoiceStatusMarkoverdue {
+  background: var(--danger);
+}
+
+.adminInvoiceStatusMarkpaid {
+  background: var(--success);
+}
+
+.adminInvoiceStatusMarkvoid {
+  background: #b4b7b0;
+}
+
+.statusdraft,
+.statusvoid,
+.statuslead,
+.statusprospect,
+.statusinactive {
+  background: #eceee8;
+  color: #646a61;
+}
+
+.statusopen {
+  background: #eaf6fb;
+  color: #286178;
+}
+
+.statusoverdue,
+.statusat_risk {
+  background: #fae8e4;
+  color: var(--danger);
+}
+
+.statuspaid {
+  background: #e4f5ea;
+  color: var(--success);
+}
+
+.adminInvoiceDetail,
+.adminInvoiceEditor {
+  position: sticky;
+  top: 28px;
+  padding: 23px;
+}
+
+.adminInvoiceDetailHeader {
+  min-width: 0;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.adminInvoiceDocumentIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 5px;
+  background: var(--ink);
+  color: var(--white);
+  display: grid;
+  place-items: center;
+}
+
+.adminInvoiceDetailHeader > div:nth-child(2),
+.adminInvoiceDetailHeader h2,
+.adminInvoiceDetailHeader p {
+  min-width: 0;
+}
+
+.adminInvoiceDetailHeader .kicker {
+  margin-bottom: 4px;
+}
+
+.adminInvoiceDetailHeader h2 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+
+.adminInvoiceDetailHeader p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.adminInvoiceCustomer {
+  min-width: 0;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.adminInvoiceCustomer > div {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adminInvoiceCustomer > div > svg {
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+
+.adminInvoiceCustomer > div > span,
+.adminInvoiceCustomer small,
+.adminInvoiceCustomer strong,
+.adminInvoiceCustomer a {
+  min-width: 0;
+  display: block;
+}
+
+.adminInvoiceCustomer small {
+  color: var(--muted);
+  font-size: 0.56rem;
+  text-transform: uppercase;
+}
+
+.adminInvoiceCustomer strong {
+  margin-top: 3px;
+  font-size: 0.72rem;
+}
+
+.adminInvoiceCustomer a {
+  margin-top: 3px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.6rem;
+  white-space: nowrap;
+}
+
+.adminInvoiceCustomer > a {
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+  font-size: 0.62rem;
+  font-weight: 740;
+}
+
+.adminInvoiceFacts {
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.adminInvoiceFacts > span {
+  min-width: 0;
+  padding: 0 12px;
+  border-right: 1px solid var(--line);
+}
+
+.adminInvoiceFacts > span:first-child {
+  padding-left: 0;
+}
+
+.adminInvoiceFacts > span:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.adminInvoiceFacts small,
+.adminInvoiceFacts strong {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminInvoiceFacts small {
+  color: var(--muted);
+  font-size: 0.56rem;
+  text-transform: uppercase;
+}
+
+.adminInvoiceFacts strong {
+  margin-top: 5px;
+  font-size: 0.74rem;
+}
+
+.adminInvoiceContext {
+  min-width: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.adminInvoiceContext strong {
+  font-size: 0.61rem;
+  text-transform: uppercase;
+}
+
+.adminInvoiceContext span {
+  color: var(--muted);
+  font-size: 0.65rem;
+  line-height: 1.4;
+}
+
+.adminInvoiceLineList {
+  margin-top: 17px;
+  border-top: 1px solid var(--ink);
+}
+
+.adminInvoiceLineListHeading,
+.adminInvoiceLineList > div:not(.adminInvoiceLineTotal) {
+  min-width: 0;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38px 88px;
+  gap: 10px;
+}
+
+.adminInvoiceLineListHeading {
+  color: var(--muted);
+  font-size: 0.55rem;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.adminInvoiceLineListHeading > span:last-child,
+.adminInvoiceLineList > div:not(.adminInvoiceLineTotal) > strong {
+  text-align: right;
+}
+
+.adminInvoiceLineList > div:not(.adminInvoiceLineListHeading):not(.adminInvoiceLineTotal) {
+  font-size: 0.65rem;
+  line-height: 1.4;
+}
+
+.adminInvoiceLineTotal {
+  padding: 13px 2px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+  font-size: 0.74rem;
+}
+
+.adminInvoiceActions {
+  padding-top: 18px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.adminInvoiceActions .button {
+  min-height: 39px;
+  padding-inline: 12px;
+  font-size: 0.66rem;
+}
+
+.adminInvoiceActions .textButtonDanger {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.64rem;
+}
+
+.adminPaidNotice {
+  margin-top: 18px;
+  padding: 12px;
+  border: 1px solid #b9d7c2;
+  background: #edf8f0;
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.adminPaidNotice strong,
+.adminPaidNotice span {
+  display: block;
+}
+
+.adminPaidNotice strong {
+  font-size: 0.69rem;
+}
+
+.adminPaidNotice span {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+
+.adminInvoiceFooter {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.62rem;
+  line-height: 1.5;
+}
+
+.adminInvoiceEmptyDetail {
+  min-height: 310px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.adminInvoiceEmptyDetail strong {
+  margin-top: 12px;
+  color: var(--ink);
+  font-size: 0.8rem;
+}
+
+.adminInvoiceEmptyDetail p {
+  margin: 5px 0 18px;
+  font-size: 0.66rem;
+}
+
+.adminInvoiceForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.adminInvoiceLines {
+  margin: 5px 0;
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.adminInvoiceLinesHeading {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.adminInvoiceLinesHeading .kicker {
+  margin-bottom: 4px;
+}
+
+.adminInvoiceLinesHeading strong {
+  display: block;
+  font-size: 0.76rem;
+}
+
+.adminInvoiceLineEditor {
+  min-width: 0;
+  margin-top: 9px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 58px 105px 36px;
+  align-items: end;
+  gap: 8px;
+}
+
+.adminInvoiceLineEditor .iconButton {
+  width: 36px;
+  height: 46px;
+  flex-basis: 36px;
+}
+
+.adminMoneyInput > span {
+  position: absolute;
+  left: 10px;
+  top: 13px;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.adminMoneyInput input {
+  padding-left: 22px;
+}
+
+.adminInvoiceTotal {
+  min-height: 62px;
+  padding: 12px 0;
+  border-top: 1px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.adminInvoiceTotal span {
+  color: var(--muted);
+  font-size: 0.63rem;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.adminInvoiceTotal strong {
+  font-size: 1.3rem;
+}
+
+.adminInvoiceEditorActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+@media (max-width: 1080px) {
+  .portalMain.adminMain {
+    width: min(100% - 40px, 1580px);
+  }
+
+  .adminInvoiceLayout,
+  .adminInvoiceLayoutEditing {
+    grid-template-columns: minmax(410px, 1fr) 400px;
+  }
+
+  .adminInvoiceRow {
+    grid-template-columns: 5px minmax(120px, 1fr) 110px auto;
+  }
+
+  .adminInvoiceRow > span:nth-child(3) {
+    display: none !important;
+  }
+
+  .adminCrmQuickActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .adminCrmQuickActions > a:nth-child(2) {
+    border-right: 0;
+  }
+
+  .adminCrmQuickActions > a:nth-child(3),
+  .adminCrmQuickActions > a:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 900px) {
+  .portalMain.adminMain {
+    width: min(100% - 32px, 1580px);
+  }
+
+  .adminInvoiceLayout,
+  .adminInvoiceLayoutEditing {
+    grid-template-columns: 1fr;
+  }
+
+  .adminInvoiceEditor {
+    order: -1;
+  }
+
+  .adminInvoiceDetail,
+  .adminInvoiceEditor {
+    position: static;
+  }
+
+  .adminCrmLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .adminHeaderActions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .adminCrmCustomerDetail,
+  .adminInvoiceDetail,
+  .adminInvoiceEditor {
+    padding: 18px 14px;
+  }
+
+  .adminCrmHeader {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .adminCrmHeader > .statusPill {
+    margin-left: 62px;
+  }
+
+  .adminCrmQuickActions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .adminCrmQuickActions > a,
+  .adminCrmQuickActions > a:nth-child(2),
+  .adminCrmQuickActions > a:nth-child(3),
+  .adminCrmQuickActions > a:nth-child(4) {
+    border-top: 0;
+    border-right: 1px solid var(--line);
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.55rem;
+  }
+
+  .adminCrmQuickActions > a:last-child {
+    border-right: 0;
+  }
+
+  .adminCrmContactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .adminCrmProfileForm,
+  .adminInvoiceForm {
+    grid-template-columns: 1fr;
+  }
+
+  .adminCrmProfileForm .formSpan,
+  .adminInvoiceForm .formSpan {
+    grid-column: auto;
+  }
+
+  .adminCrmSaveBar,
+  .adminActivityComposerActions,
+  .adminInvoiceEditorActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .adminCrmSaveBar .button,
+  .adminActivityComposerActions .button,
+  .adminInvoiceEditorActions .button {
+    width: 100%;
+  }
+
+  .adminCrmBillingBand {
+    grid-template-columns: 1fr;
+  }
+
+  .adminCrmBillingBand > span {
+    min-height: 65px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .adminCrmBillingBand > span:last-child {
+    border-bottom: 0;
+  }
+
+  .adminCrmInvoiceList > a {
+    grid-template-columns: 5px minmax(0, 1fr) auto 16px;
+  }
+
+  .adminCrmInvoiceList > a > span:nth-child(3) {
+    display: none;
+  }
+
+  .adminActivityComposer {
+    grid-template-columns: 1fr;
+  }
+
+  .adminActivitySubjectWide,
+  .adminActivityComposer .formSpan {
+    grid-column: auto;
+  }
+
+  .adminActivityItem {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .adminActivityActions {
+    grid-column: 2;
+  }
+
+  .adminActivityConfirm {
+    grid-column: 1 / -1;
+  }
+
+  .adminCrmSplitSections {
+    grid-template-columns: 1fr;
+  }
+
+  .adminCrmSplitSections > div + div {
+    padding: 23px 0 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .adminInvoiceRow {
+    grid-template-columns: 5px minmax(0, 1fr) auto;
+  }
+
+  .adminInvoiceRow > span:nth-child(3),
+  .adminInvoiceRow > span:nth-child(4) {
+    display: none !important;
+  }
+
+  .adminInvoiceDetailHeader {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .adminInvoiceDetailHeader > .statusPill {
+    grid-column: 2;
+  }
+
+  .adminInvoiceCustomer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .adminInvoiceFacts {
+    grid-template-columns: 1fr;
+    padding: 7px 0;
+  }
+
+  .adminInvoiceFacts > span,
+  .adminInvoiceFacts > span:first-child,
+  .adminInvoiceFacts > span:last-child {
+    min-height: 52px;
+    padding: 10px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .adminInvoiceFacts > span:last-child {
+    border-bottom: 0;
+  }
+
+  .adminInvoiceActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .adminInvoiceActions .button,
+  .adminInvoiceActions .textButtonDanger {
+    width: 100%;
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .adminInvoiceLineEditor {
+    grid-template-columns: minmax(0, 1fr) 64px 36px;
+  }
+
+  .adminInvoiceLineEditor > label:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .adminInvoiceLineEditor > label:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .adminInvoiceLineEditor > label:nth-child(2) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .adminInvoiceLineEditor > .iconButton {
+    grid-column: 3;
+    grid-row: 2;
+  }
 }
 
 @keyframes heroZoom {
